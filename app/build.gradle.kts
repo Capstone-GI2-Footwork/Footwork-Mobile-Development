@@ -9,6 +9,7 @@ plugins {
   alias(libs.plugins.googleMapsPlatform)
   id("kotlin-parcelize")
   alias(libs.plugins.googleGmsGoogleServices)
+  alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 //composeCompiler {
@@ -140,4 +141,7 @@ dependencies {
 
   // markdown reader
   implementation(libs.compose.markdown)
+
+  // kotlinx-serialization
+  implementation(libs.kotlinx.serialization.json)
 }
