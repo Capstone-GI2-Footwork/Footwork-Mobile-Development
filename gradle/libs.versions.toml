@@ -21,8 +21,8 @@ mapsCompose = "5.0.4"
 mapsComposeUtils = "5.0.4"
 mapsComposeWidgets = "5.0.4"
 navigationCompose = "2.8.3"
-#apolloRuntime = "3.8.5"
-#apollo-coroutines-support = "2.5.14"
+apolloRuntime = "3.8.5"
+apollo-coroutines-support = "2.5.14"
 lifecycle-version = "2.8.7"
 hiltAndroid = "2.48"
 hiltPlugin = "2.48"
@@ -37,6 +37,7 @@ transportationConsumer = "2.3.0"
 mapsPlatform = "2.0.1"
 gmsGoogleServices = "4.4.2"
 uiTextGoogleFonts = "1.7.5"
+serialization = "1.7.3"
 
 [libraries]
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
@@ -64,9 +65,10 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 
-#apollo-coroutines-support = { module = "com.apollographql.apollo:apollo-coroutines-support", version.ref = "apollo-coroutines-support"}
-#apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apolloRuntime"}
+apollo-coroutines-support = { module = "com.apollographql.apollo:apollo-coroutines-support", version.ref = "apollo-coroutines-support" }
+apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apolloRuntime" }
 maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
 maps-compose-utils = { module = "com.google.maps.android:maps-compose-utils", version.ref = "mapsComposeUtils" }
 maps-compose-widgets = { module = "com.google.maps.android:maps-compose-widgets", version.ref = "mapsComposeWidgets" }
@@ -85,16 +87,17 @@ play-services-maps = { module = "com.google.android.gms:play-services-maps", ver
 socket-io-client-v200 = { module = "io.socket:socket.io-client", version.ref = "socketIoClientVersion" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 transportation-consumer = { group = "com.google.android.libraries.mapsplatform.transportation", name = "transportation-consumer", version.ref = "transportationConsumer" }
-androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
+
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-#apolloPlugin = { id = "com.apollographql.apollo3", version.ref = "apolloRuntime" }
+apolloPlugin = { id = "com.apollographql.apollo3", version.ref = "apolloRuntime" }
 daggerHiltPlugin = { id = "com.google.dagger.hilt.android", version.ref = "hiltPlugin" }
 googleKsp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 googleMapsPlatform = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "mapsPlatform" }
 googleGmsGoogleServices = { id = "com.google.gms.google-services", version.ref = "gmsGoogleServices" }
-
+jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

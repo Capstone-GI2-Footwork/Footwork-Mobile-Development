@@ -1,4 +1,4 @@
-package com.gi2.footwork.ui.theme
+package com.gi2.footwork.presentation.ui.theme
 
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
