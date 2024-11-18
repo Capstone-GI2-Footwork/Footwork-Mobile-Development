@@ -1,4 +1,4 @@
-package com.gi2.footwork.presentation.ui.screens
+package com.gi2.footwork.ui.composables.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.CircularProgressIndicator

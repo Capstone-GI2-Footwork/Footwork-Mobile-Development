@@ -1,4 +1,4 @@
-package com.gi2.footwork.presentation.ui.theme
+package com.gi2.footwork.ui.theme
 
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
