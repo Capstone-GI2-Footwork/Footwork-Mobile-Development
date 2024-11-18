@@ -87,6 +87,7 @@ dependencies {
   implementation(libs.androidx.constraintlayout)
   implementation(libs.transportation.consumer)
   implementation(libs.androidx.ui.text.google.fonts)
+  implementation(libs.androidx.compose.material.iconsExtended)
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
@@ -144,4 +145,7 @@ dependencies {
 
   // kotlinx-serialization
   implementation(libs.kotlinx.serialization.json)
+
+  // google mdc components
+  implementation(libs.google.android.material)
 }
