@@ -1,44 +1,50 @@
 [versions]
 accompanistPermissions = "0.34.0"
 agp = "8.4.2"
-androidMapsUtils = "2.3.0"
+androidMapsUtils = "3.7.0"
 composeMarkdown = "0.5.2"
 coreSplashscreen = "1.0.1"
 datastorePreferences = "1.1.1"
-firebaseBom = "33.5.1"
-firebaseMessaging = "24.0.3"
+firebaseBom = "33.6.0"
+firebaseMessaging = "24.1.0"
 gson = "2.10.1"
 hiltCompiler = "1.2.0"
-kotlin = "2.0.0"
+kotlin = "2.0.21"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
-composeBom = "2024.10.01"
+composeBom = "2024.11.00"
 mapsCompose = "5.0.4"
 mapsComposeUtils = "5.0.4"
 mapsComposeWidgets = "5.0.4"
-navigationCompose = "2.8.3"
-apolloRuntime = "3.8.5"
-apollo-coroutines-support = "2.5.14"
+navigationCompose = "2.8.4"
+#apolloRuntime = "3.8.5"
+#apollo-coroutines-support = "2.5.14"
 lifecycle-version = "2.8.7"
-hiltAndroid = "2.48"
-hiltPlugin = "2.48"
-coilCompose = "2.6.0"
-places = "3.5.0"
-playServicesLocation = "21.1.0"
-playServicesMaps = "18.2.0"
+hiltAndroid = "2.51.1"
+hiltPlugin = "2.51.1"
+coilCompose = "3.0.3"
+places = "4.1.0"
+playServicesLocation = "21.3.0"
+playServicesMaps = "19.0.0"
 socketIoClientVersion = "2.0.0"
 constraintlayout = "2.2.0"
-ksp = "2.0.0-1.0.21"
+ksp = "2.0.21-1.0.27"
 transportationConsumer = "2.3.0"
 mapsPlatform = "2.0.1"
 gmsGoogleServices = "4.4.2"
 uiTextGoogleFonts = "1.7.5"
 serialization = "1.7.3"
 googleMaterial = "1.12.0"
+okhttpBom = "4.12.0"
+retrofit = "2.11.0"
+sandwich = "2.0.10"
+landscapist = "2.4.2"
+orbitMvi = "9.0.0"
+appcompat = "1.7.0"
 
 [libraries]
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
@@ -68,37 +74,58 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
-
-apollo-coroutines-support = { module = "com.apollographql.apollo:apollo-coroutines-support", version.ref = "apollo-coroutines-support" }
-apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apolloRuntime" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-appcompat-resources = { group = "androidx.appcompat", name = "appcompat-resources", version.ref = "appcompat" }
+#apollo-coroutines-support = { module = "com.apollographql.apollo:apollo-coroutines-support", version.ref = "apollo-coroutines-support" }
+#apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apolloRuntime" }
+# gmaps
 maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
 maps-compose-utils = { module = "com.google.maps.android:maps-compose-utils", version.ref = "mapsComposeUtils" }
 maps-compose-widgets = { module = "com.google.maps.android:maps-compose-widgets", version.ref = "mapsComposeWidgets" }
-
+# lifecycle
 androidx-lifecycle-compose-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle-version" }
 androidx-lifecycle-compose-runtime = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle-version" }
-
-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
-
+# okhttp
+okhttp-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", version.ref = "okhttpBom" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp" }
+okhttp-loggingInterceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor" }
+# retrofit
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-serialization = { group = "com.squareup.retrofit2", name = "converter-kotlinx-serialization", version.ref = "retrofit" }
+# serialization
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+# skydoves sandwich
+sandwich = { group = "com.github.skydoves", name = "sandwich", version.ref = "sandwich" }
+sandwich-retrofit = { group = "com.github.skydoves", name = "sandwich-retrofit", version.ref = "sandwich" }
+sandwich-retrofit-serialization = { group = "com.github.skydoves", name = "sandwich-retrofit-serialization", version.ref = "sandwich" }
+# coil3
+coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coilCompose" }
+coil-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coilCompose" }
+# skydoves landscapist
+landscapist-coil = { group = "com.github.skydoves", name = "landscapist-coil3", version.ref = "landscapist" }
+# orbit mvi
+orbitMvi-core = { group = "org.orbit-mvi", name = "orbit-core", version.ref = "orbitMvi" }
+orbitMvi-viewmodel = { group = "org.orbit-mvi", name = "orbit-viewmodel", version.ref = "orbitMvi" }
+orbitMvi-compose = { group = "org.orbit-mvi", name = "orbit-compose", version.ref = "orbitMvi" }
+orbitMvi-test = { group = "org.orbit-mvi", name = "orbit-test", version.ref = "orbitMvi" }
+# hilt DI
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltPlugin" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
-
+# google places
 places = { module = "com.google.android.libraries.places:places", version.ref = "places" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
 socket-io-client-v200 = { module = "io.socket:socket.io-client", version.ref = "socketIoClientVersion" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 transportation-consumer = { group = "com.google.android.libraries.mapsplatform.transportation", name = "transportation-consumer", version.ref = "transportationConsumer" }
-
-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
-
+# google mdc material3
 google-android-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-apolloPlugin = { id = "com.apollographql.apollo3", version.ref = "apolloRuntime" }
+#apolloPlugin = { id = "com.apollographql.apollo3", version.ref = "apolloRuntime" }
 daggerHiltPlugin = { id = "com.google.dagger.hilt.android", version.ref = "hiltPlugin" }
 googleKsp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 googleMapsPlatform = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "mapsPlatform" }
