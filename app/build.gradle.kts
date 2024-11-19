@@ -1,5 +1,13 @@
 import java.util.Properties
 
+val keystoreFile = rootProject.file("app/secrets.properties")
+val properties = Properties()
+if (keystoreFile.exists()) {
+  keystoreFile.inputStream().use {
+    properties.load(it)
+  }
+}
+
 plugins {
   alias(libs.plugins.androidApplication)
   alias(libs.plugins.jetbrainsKotlinAndroid)
@@ -34,19 +42,14 @@ android {
       useSupportLibrary = true
     }
 
-    //load the values from .properties file
-    val keystoreFile = project.rootProject.file("app/secrets.properties")
-    val properties = Properties()
-    properties.load(keystoreFile.inputStream())
+    fun loadConfig(type: String, key: String, defaultValue: String) {
+      val value = properties.getProperty(key) ?: defaultValue
+      manifestPlaceholders[key] = value
+      buildConfigField(type, key, "\"$value\"")
+    }
 
-    //return empty key in case something goes wrong
-    val mapsApiKey = properties.getProperty("MAPS_API_KEY") ?: ""
-    buildConfigField(
-      "String",
-      "MAPS_API_KEY",
-      "\"$mapsApiKey\""
-    )
-    manifestPlaceholders["MAPS_API_KEY"] = mapsApiKey
+    loadConfig("String", "MAPS_API_KEY", "")
+    loadConfig("String", "FOOTWORK_API_BASE_URL", "")
   }
 
   buildTypes {
