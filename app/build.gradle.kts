@@ -32,8 +32,7 @@ android {
   defaultConfig {
     applicationId = "com.gi2.footwork"
     minSdk = 24
-    //noinspection OldTargetApi
-    targetSdk = 34
+    targetSdk = 35
     versionCode = 1
     versionName = "1.0"
 
@@ -69,12 +68,12 @@ android {
     jvmTarget = JavaVersion.VERSION_17.toString()
   }
   buildFeatures {
-    compose = true
     buildConfig = true
+    compose = true
   }
-  composeOptions {
-    kotlinCompilerExtensionVersion = "1.5.1"
-  }
+//  composeOptions {
+//    kotlinCompilerExtensionVersion = "1.5.1"
+//  }
   packaging {
     resources {
       excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -96,6 +95,8 @@ dependencies {
   implementation(libs.transportation.consumer)
   implementation(libs.androidx.ui.text.google.fonts)
   implementation(libs.androidx.compose.material.iconsExtended)
+  implementation(libs.androidx.appcompat)
+  implementation(libs.androidx.appcompat.resources)
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
@@ -103,23 +104,16 @@ dependencies {
   androidTestImplementation(libs.androidx.ui.test.junit4)
   debugImplementation(libs.androidx.ui.tooling)
   debugImplementation(libs.androidx.ui.test.manifest)
-
   // view model compose
   implementation(libs.androidx.lifecycle.compose.viewmodel)
   implementation(libs.androidx.lifecycle.compose.runtime)
-
-  // coil image library
-  implementation(libs.coil.compose)
-
   // dagger hilt
   implementation(libs.hilt.android)
   ksp(libs.hilt.compiler)
   ksp(libs.androidx.hilt.compiler)
   implementation(libs.androidx.hilt.navigation.compose)
-
   // navigation compose
   implementation(libs.androidx.navigation.compose)
-
   // maps
   implementation(libs.maps.compose)
   implementation(libs.maps.compose.utils)
@@ -127,33 +121,45 @@ dependencies {
   implementation(libs.play.services.maps)
   implementation(libs.play.services.location)
   implementation(libs.android.maps.utils)
-
   // permission library
   implementation(libs.accompanist.permissions)
-
   // Splash API
   implementation(libs.androidx.core.splashscreen)
-
   // shared preferences
   implementation(libs.androidx.datastore.preferences)
-
   // socket io
   implementation(libs.socket.io.client.v200)
-
   // gson
   implementation(libs.gson)
-
   // places api
   implementation(libs.places)
   implementation(libs.firebase.messaging)
   implementation(platform(libs.firebase.bom))
-
   // markdown reader
   implementation(libs.compose.markdown)
-
   // kotlinx-serialization
   implementation(libs.kotlinx.serialization.json)
-
   // google mdc components
   implementation(libs.google.android.material)
+  //  okhttp
+  implementation(platform(libs.okhttp.bom))
+  implementation(libs.okhttp)
+  implementation(libs.okhttp.loggingInterceptor)
+  //  retrofit
+  implementation(libs.retrofit)
+  implementation(libs.retrofit.serialization)
+  //  skydoves sandwich
+  implementation(libs.sandwich)
+  implementation(libs.sandwich.retrofit)
+  implementation(libs.sandwich.retrofit.serialization)
+  //  coil3
+  implementation(libs.coil.compose)
+  implementation(libs.coil.okhttp)
+  //  skydoves landscapist
+  implementation(libs.landscapist.coil)
+  //  orbit mvi
+  implementation(libs.orbitMvi.core)
+  implementation(libs.orbitMvi.viewmodel)
+  implementation(libs.orbitMvi.compose)
+  testImplementation(libs.orbitMvi.test)
 }
