@@ -25,7 +25,6 @@ fun OnboardingScreen(
   onSignUp: () -> Unit,
   onSignIn: () -> Unit,
 ) {
-  //  TODO: Implement OnboardingViewModel
   OnboardingScreenContent(
     modifier = modifier,
     onSignUp = onSignUp,
@@ -112,11 +111,11 @@ private fun NavigateToSignIn(
         )
         .toSpanStyle()
     ) {
-      append("Sign In")
+      append("Login Here")
       addStringAnnotation(
         tag = "SignIn",
         start = 0,
-        end = 7,
+        end = 10,
         annotation = "SignIn"
       )
     }
@@ -127,7 +126,7 @@ private fun NavigateToSignIn(
     annotatedString,
     style = MaterialTheme.typography.bodySmall,
     onClick = {
-      annotatedString.getStringAnnotations("SignUp", 0, 7)
+      annotatedString.getStringAnnotations("SignIn", 0, 10)
         .firstOrNull()
         ?.let { onNavigate() }
     }

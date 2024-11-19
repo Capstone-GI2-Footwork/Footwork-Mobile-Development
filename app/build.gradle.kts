@@ -1,4 +1,4 @@
-//import java.util.Properties
+import java.util.Properties
 
 plugins {
   alias(libs.plugins.androidApplication)
@@ -35,14 +35,18 @@ android {
     }
 
     //load the values from .properties file
-//        val keystoreFile = project.rootProject.file("secrets.properties")
-//        val properties = Properties()
-//        properties.load(keystoreFile.inputStream())
-//
-//        //return empty key in case something goes wrong
-//        val apiKey = properties.getProperty("MAPS_API_KEY") ?: ""
-//        buildConfigField("String", "MAPS_API_KEY","\"${properties.getProperty("MAPS_API_KEY")}\"")
-//        manifestPlaceholders["MAPS_API_KEY"] = apiKey
+    val keystoreFile = project.rootProject.file("app/secrets.properties")
+    val properties = Properties()
+    properties.load(keystoreFile.inputStream())
+
+    //return empty key in case something goes wrong
+    val mapsApiKey = properties.getProperty("MAPS_API_KEY") ?: ""
+    buildConfigField(
+      "String",
+      "MAPS_API_KEY",
+      "\"$mapsApiKey\""
+    )
+    manifestPlaceholders["MAPS_API_KEY"] = mapsApiKey
   }
 
   buildTypes {
@@ -63,6 +67,7 @@ android {
   }
   buildFeatures {
     compose = true
+    buildConfig = true
   }
   composeOptions {
     kotlinCompilerExtensionVersion = "1.5.1"
