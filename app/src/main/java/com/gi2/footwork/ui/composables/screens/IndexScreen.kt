@@ -13,6 +13,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.gi2.footwork.FootworkRoute
 import com.gi2.footwork.R
 import com.gi2.footwork.ui.theme.FootworkTheme
 import kotlinx.coroutines.delay
@@ -20,7 +22,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun IndexScreen(
   modifier: Modifier = Modifier,
-  onNavigateToNextScreen: () -> Unit,
+  navController: NavController,
 ) {
   /**
    * TODO: Implement AuthViewModel
@@ -30,7 +32,11 @@ fun IndexScreen(
 
   LaunchedEffect(Unit) {
     delay(3000L) // simulate user credential fetching
-    onNavigateToNextScreen()
+    navController.navigate(FootworkRoute.Onboarding) {
+      popUpTo(FootworkRoute.Onboarding) {
+        inclusive = true
+      }
+    }
   }
 
   IndexScreenContent(
@@ -88,8 +94,6 @@ private fun IndexScreenContent(
 @Composable
 private fun IndexScreenPreview() {
   FootworkTheme {
-    IndexScreen(
-      onNavigateToNextScreen = {}
-    )
+    IndexScreenContent()
   }
 }

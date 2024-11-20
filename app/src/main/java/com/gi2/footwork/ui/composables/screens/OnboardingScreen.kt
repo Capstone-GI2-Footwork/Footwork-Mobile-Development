@@ -15,6 +15,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.gi2.footwork.FootworkRoute
 import com.gi2.footwork.R
 import com.gi2.footwork.ui.composables.atoms.BrandButton
 import com.gi2.footwork.ui.theme.FootworkTheme
@@ -22,13 +24,16 @@ import com.gi2.footwork.ui.theme.FootworkTheme
 @Composable
 fun OnboardingScreen(
   modifier: Modifier = Modifier,
-  onSignUp: () -> Unit,
-  onSignIn: () -> Unit,
+  navController: NavController,
 ) {
   OnboardingScreenContent(
     modifier = modifier,
-    onSignUp = onSignUp,
-    onSignIn = onSignIn
+    onSignUp = {
+      navController.navigate(FootworkRoute.SignUp)
+    },
+    onSignIn = {
+      navController.navigate(FootworkRoute.SignIn)
+    }
   )
 }
 

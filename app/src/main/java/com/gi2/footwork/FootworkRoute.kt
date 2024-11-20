@@ -1,4 +1,4 @@
-package com.gi2.footwork.ui.composables.screens
+package com.gi2.footwork
 
 import kotlinx.serialization.Serializable
 

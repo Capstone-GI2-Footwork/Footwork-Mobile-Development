@@ -8,24 +8,34 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+import com.gi2.footwork.FootworkRoute
 import com.gi2.footwork.ui.composables.common.keyboardAsState
 
 @Composable
 fun SignInScreen(
-  onBack: () -> Unit,
+  modifier: Modifier = Modifier,
+  navController: NavController,
 ) {
   val isKeyboardOpen by keyboardAsState()
+
   BackHandler(enabled = !isKeyboardOpen) {
-    onBack()
+    navController.navigate(FootworkRoute.Onboarding) {
+      popUpTo(FootworkRoute.Onboarding) { inclusive = true }
+    }
   }
 
-  SignInScreenContent()
+  SignInScreenContent(
+    modifier = modifier
+  )
 }
 
 @Composable
-private fun SignInScreenContent() {
+private fun SignInScreenContent(
+  modifier: Modifier = Modifier,
+) {
   Scaffold(
-    modifier = Modifier.fillMaxSize()
+    modifier = modifier.fillMaxSize()
   ) { innerPadding ->
     Column(
       modifier = Modifier
