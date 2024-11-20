@@ -2,11 +2,13 @@ package com.gi2.footwork.ui.composables.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,7 +17,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LinearProgressIndicator
@@ -27,11 +31,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.layout.ContentScale
@@ -124,6 +130,8 @@ fun HomeAppBar(
 fun HomeScreenContent(
 
 ) {
+    val scrollState = rememberScrollState()
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -131,13 +139,14 @@ fun HomeScreenContent(
     ) { innerPadding ->
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .verticalScroll(scrollState)
                 .padding(innerPadding),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Top)
         ) {
             HomeAppBar()
             Spacer(modifier = Modifier.height(16.dp))
+
             CardContainer()
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -158,6 +167,29 @@ fun HomeScreenContent(
             )
 
             ContributionCard()
+
+            Text(
+                text = "Challenges",
+
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    lineHeight = 20.sp,
+//                    fontFamily = FontFamily(Font(R.font.inter)),
+                    fontWeight = FontWeight(600),
+                    color = Color(0xFF404040),
+                ),
+
+                modifier = Modifier
+                    .align(Alignment.Start)
+            )
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                repeat(3) {
+                    ChallengeCard()
+                }
+            }
         }
     }
 }
@@ -707,14 +739,13 @@ fun EvCycleCard() {
 //@Preview(showBackground = true)
 fun CardContainer() {
     LazyHorizontalGrid(
-        rows = GridCells.Fixed(2), // 2 rows in the grid
+        rows = GridCells.Fixed(2),
         modifier = Modifier
-            .height(352.dp)
-            .fillMaxWidth(),
+            .height(352.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items(4) { index -> // Assuming you have 4 cards
+        items(4) { index ->
             when (index) {
                 0 -> StepsCard()
                 1 -> MotorCycleCard()
@@ -926,10 +957,114 @@ fun ContributionCard() {
     }
 }
 
-
+@Composable
+fun ChallengeProgressIndicator(
+    modifier: Modifier = Modifier,
+    progress: Float = 0.3f,
+    color : Color = Color(0xFF52B040),
+    trackColor: Color = Color(0xFFF4F3F3),
+    clipShape: Shape = RoundedCornerShape(6.dp)
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(clipShape)
+            .background(trackColor)
+            .height(24.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .clip(clipShape)
+                .background(color)
+                .fillMaxHeight()
+                .fillMaxWidth(progress)
+        )
+    }
+}
 
 @Composable
-@Preview(showBackground = true, showSystemUi = true)
+//@Preview(showBackground = true)
+fun ChallengeCard() {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.Top),
+        horizontalAlignment = Alignment.Start,
+        modifier = Modifier
+            .shadow(elevation = 8.dp, spotColor = Color(0x14000000), ambientColor = Color(0x14000000))
+            .width(345.dp)
+            .height(101.dp)
+            .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = 12.dp))
+            .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 16.dp)
+    ) {
+        Text(
+            text = "Share positive moments",
+
+            style = TextStyle(
+                fontSize = 14.sp,
+                lineHeight = 17.sp,
+//                fontFamily = FontFamily(Font(R.font.inter)),
+                fontWeight = FontWeight(500),
+                color = Color(0xFF404040),
+            )
+        )
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start),
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .border(width = 1.dp, color = Color(0xFFCDCDCD), shape = RoundedCornerShape(size = 10.dp))
+                .padding(4.dp)
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .weight(1f)
+                    .height(24.dp)
+            ){
+                ChallengeProgressIndicator(
+                    progress = 0.7f,
+                    modifier = Modifier
+                        .height(24.dp)
+                )
+
+                Text(
+                    text = "3/7",
+
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        lineHeight = 24.sp,
+//                        fontFamily = FontFamily(Font(R.font.poppins)),
+                        fontWeight = FontWeight(600),
+                        color = Color(0xFFFAFAFA),
+                    )
+                )
+            }
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+
+            Text(
+                text = "3",
+
+                style = TextStyle(
+                    fontSize = 22.sp,
+                    lineHeight = 28.sp,
+//                    fontFamily = FontFamily(Font(R.font.poppins)),
+                    fontWeight = FontWeight(600),
+                    color = Color(0xFFEAB01C),
+                )
+            )
+
+            Image(
+                painter = painterResource(id = R.drawable.ic_cup_star),
+                contentDescription = "image description",
+                contentScale = ContentScale.None
+            )
+        }
+    }
+}
+
+@Composable
+@Preview(showBackground = true, showSystemUi = true, apiLevel = 30)
 fun HomeScreenPreview(
 
 ){
