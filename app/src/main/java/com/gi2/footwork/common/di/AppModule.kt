@@ -1,4 +1,4 @@
-package com.gi2.footwork.di
+package com.gi2.footwork.common.di
 
 import dagger.Module
 import dagger.Provides
