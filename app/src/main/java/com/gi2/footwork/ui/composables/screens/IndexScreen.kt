@@ -2,8 +2,7 @@ package com.gi2.footwork.ui.composables.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -16,26 +15,41 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.gi2.footwork.FootworkRoute
 import com.gi2.footwork.R
+import com.gi2.footwork.ui.common.UiStatus
 import com.gi2.footwork.ui.theme.FootworkTheme
+import com.gi2.footwork.ui.viewmodel.auth.AuthSideEffect
+import com.gi2.footwork.ui.viewmodel.auth.AuthViewModel
 import kotlinx.coroutines.delay
+import org.orbitmvi.orbit.compose.collectAsState
+import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 fun IndexScreen(
   modifier: Modifier = Modifier,
   navController: NavController,
+  viewModel: AuthViewModel,
 ) {
-  /**
-   * TODO: Implement AuthViewModel
-   * AuthViewModel should be able to check the user's auth status.
-   * Meanwhile, this screen will render loader and redirect to the next screen
-   */
+  val state by viewModel.collectAsState()
 
-  LaunchedEffect(Unit) {
-    delay(3000L) // simulate user credential fetching
-    navController.navigate(FootworkRoute.Onboarding) {
-      popUpTo(FootworkRoute.Onboarding) {
-        inclusive = true
+  viewModel.collectSideEffect { effect ->
+    when (effect) {
+      is AuthSideEffect.OnNavigate -> {
+        navController.navigate(effect.route) {
+          popUpTo(FootworkRoute.Index) {
+            inclusive = true
+          }
+        }
       }
+    }
+  }
+
+  LaunchedEffect(state) {
+    delay(1000L)
+    if (state.status !is UiStatus.Loading) {
+      viewModel.redirect(
+        if (state.isAuthed) FootworkRoute.Home
+        else FootworkRoute.Onboarding
+      )
     }
   }
 
