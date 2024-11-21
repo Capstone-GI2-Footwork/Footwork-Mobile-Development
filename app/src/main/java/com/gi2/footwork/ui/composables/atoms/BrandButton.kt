@@ -1,4 +1,4 @@
-package com.gi2.footwork.ui.components
+package com.gi2.footwork.ui.composables.atoms
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding

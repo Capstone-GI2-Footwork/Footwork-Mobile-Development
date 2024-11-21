@@ -4,10 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.ui.Modifier
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.navigation.compose.*
+import com.gi2.footwork.ui.composables.screens.*
 import com.gi2.footwork.ui.theme.FootworkTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,10 +18,34 @@ class MainActivity : ComponentActivity() {
     enableEdgeToEdge()
 
     setContent {
+      val navController = rememberNavController()
+
       FootworkTheme {
-        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-          Box(modifier = Modifier.padding(innerPadding)) {
-            Text("Hello, World!")
+        NavHost(
+          navController,
+          startDestination = FootworkRoute.Index,
+          enterTransition = { EnterTransition.None },
+          exitTransition = { ExitTransition.None }
+        ) {
+          composable<FootworkRoute.Index> {
+            IndexScreen(
+              navController = navController
+            )
+          }
+          composable<FootworkRoute.Onboarding> {
+            OnboardingScreen(
+              navController = navController,
+            )
+          }
+          composable<FootworkRoute.SignIn> {
+            SignInScreen(
+              navController = navController
+            )
+          }
+          composable<FootworkRoute.SignUp> {
+            SignUpScreen(
+              navController = navController
+            )
           }
         }
       }
