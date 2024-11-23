@@ -3,11 +3,13 @@ package com.gi2.footwork.ui.composables.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,37 +19,60 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import com.gi2.footwork.R
 import com.gi2.footwork.ui.composables.atoms.BrandButton
+import com.gi2.footwork.ui.theme.AppTypography
+import com.gi2.footwork.ui.theme.destinationBackground
+import com.gi2.footwork.ui.theme.destinationDivider
+import com.gi2.footwork.ui.theme.destinationText
+import com.gi2.footwork.ui.theme.locationCardSubtitle
+import com.gi2.footwork.ui.theme.locationCardTitle
+import com.gi2.footwork.ui.theme.locationOpen
+import com.gi2.footwork.ui.theme.locationOpenBackground
+import com.gi2.footwork.ui.theme.onPrimaryFixed
+import com.gi2.footwork.ui.theme.primaryFixed
+import com.gi2.footwork.ui.theme.suggestionBackground
+import com.gi2.footwork.ui.theme.suggestionText
+import com.gi2.footwork.ui.theme.trackingStarted
+import com.gi2.footwork.ui.theme.unselectedNavigation
 
 @Composable
 //@Preview
-fun SearchBar() {
+fun TrackingSearchBar(
+    onClick: () -> Unit = {  }
+) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
-            .shadow(elevation = 12.dp, spotColor = Color(0x14000000), ambientColor = Color(0x14000000))
+            .shadow(elevation = 12.dp,
+                )
             .width(345.dp)
             .background(
-                color = Color(0xFFFAFAFA),
+                color = onPrimaryFixed,
                 shape = RoundedCornerShape(size = 8.dp))
+            .clickable { onClick() }
     ) {
         val text = "Search for location..."
 
@@ -59,15 +84,9 @@ fun SearchBar() {
         ) {
             BasicTextField(
                 value = text,
-                onValueChange = {
-                },
-                textStyle = TextStyle(
-                    fontSize = 16.sp,
-                    lineHeight = 17.sp,
-//                    fontFamily = FontFamily(Font(R.font.inter)),
-                    fontWeight = FontWeight(400),
-                    color = Color(0xFFBABABA),
-                ),
+                onValueChange = { /*TODO*/ },
+                textStyle = AppTypography.bodyMedium.copy(
+                    color = Color(0xFFBABABA)),
                 modifier = Modifier.weight(1f),
             )
             Image(
@@ -81,76 +100,113 @@ fun SearchBar() {
 
 @Composable
 //@Preview
-fun FootworkBottomNavBarElement(
-    modifier: Modifier = Modifier
-){
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-            .shadow(elevation = 12.dp, spotColor = Color(0x1F000000), ambientColor = Color(0x1F000000))
-            .background(color = Color(0xFFFAFAFA), shape = RoundedCornerShape(size = 16.dp))
-            .padding(vertical = 16.dp)
+fun FootworkBottomBar() {
+    var selectedItem by remember { mutableStateOf("Home") }
+
+    @Composable
+    fun NavigationItem(
+        iconRes: Int,
+        contentDescription: String,
+        isSelected: Boolean,
+        onClick: () -> Unit
     ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
+        IconButton(
+            onClick = onClick,
+            modifier = Modifier.size(48.dp)
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_bottombar_home),
-                contentDescription = "Home",
-                modifier = Modifier.size(24.dp)
-            )
-
-            Image(
-                painter = painterResource(id = R.drawable.ic_bottombar_leaderboard),
-                contentDescription = "Search",
-                modifier = Modifier.size(24.dp)
-            )
-
-            Spacer(modifier = Modifier.width(24.dp))
-
-            Image(
-                painter = painterResource(id = R.drawable.ic_bottombar_tracking),
-                contentDescription = "Location",
-                modifier = Modifier.size(24.dp)
-            )
-
-            Image(
-                painter = painterResource(id = R.drawable.ic_bottombar_community),
-                contentDescription = "Profile",
-                modifier = Modifier.size(24.dp)
+            Icon(
+                painter = painterResource(id = iconRes),
+                contentDescription = contentDescription,
+                modifier = Modifier.size(24.dp),
+                tint = if (isSelected) {
+                    primaryFixed
+                } else {
+                    unselectedNavigation
+                }
             )
         }
     }
-}
 
-@Composable
-//@Preview
-fun FootworkBottomBar(
+    @Composable
+    fun NavigationBar(
+        selectedItem: String,
+        onItemSelected: (String) -> Unit,
+        modifier: Modifier = Modifier
+    ) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = modifier
+                .shadow(elevation = 12.dp)
+                .background(color = onPrimaryFixed, shape = RoundedCornerShape(size = 16.dp))
+                .padding(vertical = 4.dp)
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                NavigationItem(
+                    iconRes = R.drawable.ic_bottombar_home,
+                    contentDescription = "Home",
+                    isSelected = selectedItem == "Home",
+                    onClick = { onItemSelected("Home") }
+                )
 
-){
+                NavigationItem(
+                    iconRes = R.drawable.ic_bottombar_leaderboard,
+                    contentDescription = "Leaderboard",
+                    isSelected = selectedItem == "Leaderboard",
+                    onClick = { onItemSelected("Leaderboard") }
+                )
+
+                Spacer(modifier = Modifier.width(40.dp))
+
+                NavigationItem(
+                    iconRes = R.drawable.ic_bottombar_tracking,
+                    contentDescription = "Tracking",
+                    isSelected = selectedItem == "Tracking",
+                    onClick = { onItemSelected("Tracking") }
+                )
+
+                NavigationItem(
+                    iconRes = R.drawable.ic_bottombar_community,
+                    contentDescription = "Community",
+                    isSelected = selectedItem == "Community",
+                    onClick = { onItemSelected("Community") }
+                )
+            }
+        }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
-    ){
-        FootworkBottomNavBarElement(
+    ) {
+        NavigationBar(
+            selectedItem = selectedItem,
+            onItemSelected = { newSelection ->
+                selectedItem = newSelection
+
+                /* TODO */
+            },
             modifier = Modifier.align(Alignment.BottomCenter)
         )
+
         IconButton(
-            onClick = { /*TODO*/ },
+            onClick = { /* TODO */ },
             modifier = Modifier
                 .padding(bottom = 24.dp)
                 .size(56.dp)
                 .clip(CircleShape)
-                .background(color = Color(0xFF52B040))
+                .background(color = primaryFixed)
                 .align(Alignment.BottomCenter)
                 .padding(16.dp)
         ) {
-            Image(
+            Icon(
                 painter = painterResource(id = R.drawable.ic_bottombar_main),
                 contentDescription = "Main Content",
                 modifier = Modifier.size(24.dp),
+                tint = onPrimaryFixed
             )
         }
     }
@@ -158,106 +214,104 @@ fun FootworkBottomBar(
 
 @Composable
 //@Preview
-fun SearchSuggestionsItem(){
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxWidth()
+fun SuggestionsContainer(
+    suggestionList: List<Pair<String, String>> = listOf(
+        Pair("Universitas 17 Agustus 1945 Surabaya", "50 m"),
+        Pair("Universitas Negeri Surabaya", "100 m"),
+        Pair("Universitas Pembangunan Nasional", "150 m"),
+    )
+) {
+    @Composable
+    fun SuggestionsItem(
+        onClick: () -> Unit = {},
+        name: String,
+        distance: String
     ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(onClick = onClick)
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_suggestions_pin),
-                contentDescription = "Pins",
-                modifier = Modifier.size(16.dp)
-            )
-
-            Text(
-                text = "Universitas 17 Agustus 1945 Surabaya",
-
-                style = TextStyle(
-                    fontSize = 12.sp,
-                    lineHeight = 18.sp,
-//                    fontFamily = FontFamily(Font(R.font.inter)),
-                    fontWeight = FontWeight(500),
-                    color = Color(0xFF7B7B7B),
-                ),
-
-                modifier = Modifier.weight(1f)
-            )
-
-            Text(
-                text = "50 m",
-
-                style = TextStyle(
-                    fontSize = 12.sp,
-                    lineHeight = 18.sp,
-//                    fontFamily = FontFamily(Font(R.font.inter)),
-                    fontWeight = FontWeight(500),
-                    color = Color(0xFF7B7B7B),
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_suggestions_pin),
+                    contentDescription = "Pins",
+                    modifier = Modifier.size(16.dp)
                 )
-            )
+
+                Text(
+                    text = name,
+                    style = AppTypography.bodySmall.copy(
+                        color = suggestionText
+                    ),
+                    modifier = Modifier.weight(1f)
+                )
+
+                Text(
+                    text = distance,
+                    style = AppTypography.bodySmall.copy(
+                        color = suggestionText
+                    )
+                )
+            }
         }
     }
-}
 
-@Composable
-//@Preview(showBackground = true)
-fun SuggestionsContainer(){
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxWidth()
             .background(
-                color = Color(0x80FAFAFA),
+                color = suggestionBackground,
                 shape = RoundedCornerShape(
                     bottomEnd = 8.dp,
                     bottomStart = 8.dp
                 )
             )
-
     ) {
         Column(
             modifier = Modifier
                 .padding(horizontal = 24.dp, vertical = 16.dp)
         ) {
-            SearchSuggestionsItem()
+            suggestionList.forEachIndexed { index, suggestion ->
+                SuggestionsItem(
+                    name = suggestion.first,
+                    distance = suggestion.second,
+                    onClick = {
+                        /* TODO */
+                    }
+                )
 
-            Spacer(modifier = Modifier.height(8.dp))
-
-            HorizontalDivider(
-                modifier = Modifier.fillMaxWidth(),
-                color = Color(0xFFBABABA)
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            SearchSuggestionsItem()
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            HorizontalDivider(
-                modifier = Modifier.fillMaxWidth(),
-                color = Color(0xFFBABABA)
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            SearchSuggestionsItem()
+                if (index < suggestionList.size - 1) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    HorizontalDivider(
+                        modifier = Modifier.fillMaxWidth(),
+                        color = Color(0xFFBABABA)
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
+            }
         }
     }
 }
 
+
 @Composable
 //@Preview
-fun LocationCard() {
+fun LocationCard(
+    imageResource: Int = R.drawable.img_untag,
+    name: String = "Universitas 17 Agustus 1945 Surabaya",
+    address: String = "Jl. Semolowaru No.45, Menur Pumpungan, Kec. Sekolilo"
+) {
     Box(
         modifier = Modifier
             .width(393.dp)
             .height(396.dp)
-            .background(color = Color(0xFFFAFAFA), shape = RoundedCornerShape(size = 24.dp))
+            .background(color = onPrimaryFixed, shape = RoundedCornerShape(size = 24.dp))
     ){
         Column(
             horizontalAlignment = Alignment.Start,
@@ -270,7 +324,7 @@ fun LocationCard() {
                 )
         ){
             Image(
-                painter = painterResource(id = R.drawable.img_untag),
+                painter = painterResource(id = imageResource),
                 contentDescription = "Location Card",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -282,28 +336,20 @@ fun LocationCard() {
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Universitas 17 Agustus 1945 Surabaya",
-
-                style = TextStyle(
-                    fontSize = 14.sp,
-                    lineHeight = 17.sp,
-//                    fontFamily = FontFamily(Font(R.font.inter)),
+                text = name,
+                style = AppTypography.bodyMedium.copy(
                     fontWeight = FontWeight(600),
-                    color = Color(0xFF404040),
+                    color = locationCardTitle
                 )
             )
 
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
-                text = "Jl. Semolowaru No.45, Menur Pumpungan, Kec. Sekolilo, S...",
-
-                style = TextStyle(
-                    fontSize = 12.sp,
-                    lineHeight = 18.sp,
-//                    fontFamily = FontFamily(Font(R.font.inter)),
+                text = address,
+                style = AppTypography.bodySmall.copy(
                     fontWeight = FontWeight(400),
-                    color = Color(0xFFAEAEAE),
+                    color = locationCardSubtitle
                 )
             )
 
@@ -315,21 +361,17 @@ fun LocationCard() {
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
-                        .border(width = 1.dp, color = Color(0xFF00AA25), shape = RoundedCornerShape(size = 25.dp))
+                        .border(width = 1.dp, color = locationOpen, shape = RoundedCornerShape(size = 25.dp))
                         .width(55.dp)
                         .height(22.dp)
-                        .background(color = Color(0x0D00AA25), shape = RoundedCornerShape(size = 25.dp))
+                        .background(color = locationOpenBackground, shape = RoundedCornerShape(size = 25.dp))
                         .padding(start = 12.dp, top = 4.dp, end = 12.dp, bottom = 4.dp)
                 ){
                     Text(
                         text = "Open",
-
-                        style = TextStyle(
-                            fontSize = 12.sp,
-                            lineHeight = 14.sp,
-//                        fontFamily = FontFamily(Font(R.font.inter)),
+                        style = AppTypography.bodySmall.copy(
                             fontWeight = FontWeight(400),
-                            color = Color(0xFF00AA25),
+                            color = locationOpen
                         )
                     )
                 }
@@ -338,13 +380,9 @@ fun LocationCard() {
 
                 Text(
                     text = "Close 10PM",
-
-                    style = TextStyle(
-                        fontSize = 12.sp,
-                        lineHeight = 14.sp,
-//                        fontFamily = FontFamily(Font(R.font.inter)),
+                    style = AppTypography.bodySmall.copy(
                         fontWeight = FontWeight(400),
-                        color = Color(0xFFAAAAAA),
+                        color = locationCardSubtitle
                     )
                 )
             }
@@ -360,146 +398,145 @@ fun LocationCard() {
     }
 }
 
+
 @Composable
-fun DestinationFieldContainer(
-
+//@Preview
+fun DestinationCard(
+    startLocation: String = "Your Location",
+    terminalLocation: String = "Universitas 17 Agustus 1945 Surabaya",
+    vehicleUsed: String = "Car",
+    durationList: List<Map<String, String>> = listOf(
+        mapOf("Car" to "15 min"),
+        mapOf("Motorcycle" to "10 min"),
+        mapOf("EV Cycle" to "20 min"),
+        mapOf("Footprints" to "30 min")
+    )
 ){
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(
-                color = Color(0x40D8D8D8),
-                shape = RoundedCornerShape(size = 8.dp)
-            )
-    ) {
-        Column(
+    @Composable
+    fun DestinationFieldContainer(){
+        Box(
+            contentAlignment = Alignment.Center,
             modifier = Modifier
-                .padding(16.dp)
+                .fillMaxWidth()
+                .background(
+                    color = destinationBackground,
+                    shape = RoundedCornerShape(size = 8.dp)
+                )
         ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_start_destination),
-                    contentDescription = "Start Location",
-                    modifier = Modifier.size(32.dp)
-                )
-                Text(
-                    text = "Your Location",
-                    
-                    style = TextStyle(
-                        fontSize = 14.sp,
-                        lineHeight = 17.sp,
-//                        fontFamily = FontFamily(Font(R.font.inter)),
-                        fontWeight = FontWeight(400),
-                        color = Color(0xFF404040),
-                    ),
-                    modifier = Modifier.weight(1f)
-                )
-            }
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_start_destination),
+                        contentDescription = "Start Location",
+                        modifier = Modifier.size(32.dp)
+                    )
+                    Text(
+                        text = startLocation,
 
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
+                        style = AppTypography.bodyMedium.copy(
+                            fontWeight = FontWeight(400),
+                            color = destinationText
+                        ),
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    HorizontalDivider(
+                        thickness = 1.dp,
+                        color = destinationDivider,
+                        modifier = Modifier.weight(1f)
+                    )
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_connected_destination),
+                        contentDescription = "Connected Icon",
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_terminal_destination),
+                        contentDescription = "Start Location",
+                        modifier = Modifier.size(32.dp)
+                    )
+
+                    Text(
+                        text = terminalLocation,
+
+                        style = AppTypography.bodyMedium.copy(
+                            fontWeight = FontWeight(400),
+                            color = destinationText
+                        ),
+
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+            }
+        }
+    }
+
+    @Composable
+    fun VehicleUsedButton(
+        isFocus: Boolean = false,
+        imageResource: Int = R.drawable.ic_motorcycle,
+        duration: String = "15 min"
+    ){
+        val backgroundColor = if (isFocus) primaryFixed else onPrimaryFixed
+        val iconColor = if (isFocus) onPrimaryFixed else primaryFixed
+
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .border(width = 1.dp, color = primaryFixed, shape = RoundedCornerShape(size = 8.dp))
+                .size(74.dp)
+                .background(color = backgroundColor, shape = RoundedCornerShape(size = 8.dp))
+                .padding(16.dp)
+        ){
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                HorizontalDivider(
-                    thickness = 1.dp,
-                    color = Color(0xFFD8D8D8),
-                    modifier = Modifier
-                        .background(color = Color(0xFFCACACA), shape = RoundedCornerShape(size = 4.dp))
-                        .weight(1f)
-                )
-                Image(
-                    painter = painterResource(id = R.drawable.ic_connected_destination),
-                    contentDescription = "Connected Icon",
+                Icon(
+                    painter = painterResource(id = imageResource),
+                    contentDescription = "Vehicle Icon",
+                    tint = iconColor,
                     modifier = Modifier.size(24.dp)
                 )
-            }
 
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_terminal_destination),
-                    contentDescription = "Start Location",
-                    modifier = Modifier.size(32.dp)
-                )
                 Text(
-                    text = "Universitas 17 Agustus 1945 SU...",
+                    text = duration,
 
-                    style = TextStyle(
-                        fontSize = 14.sp,
-                        lineHeight = 17.sp,
-//                        fontFamily = FontFamily(Font(R.font.inter)),
-                        fontWeight = FontWeight(400),
-                        color = Color(0xFF404040),
-                    ),
-
-                    modifier = Modifier.weight(1f)
+                    style = AppTypography.bodySmall.copy(
+                        fontWeight = FontWeight(500),
+                        color = iconColor
+                    )
                 )
             }
         }
     }
-}
 
-@Composable
-//@Preview
-fun VehicleUsedButton(
-    isFocus: Boolean = false,
-    imageResource: Int = R.drawable.ic_motorcycle,
-    text: String = "15 min"
-){
-    val backgroundColor = if (isFocus) Color(0xFF52B040) else Color(0xFFFAFAFA)
-    val iconColor = if (isFocus) Color(0xFFFAFAFA) else Color(0xFF52B040)
 
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .border(width = 1.dp, color = Color(0xFF52B040), shape = RoundedCornerShape(size = 8.dp))
-            .size(74.dp)
-            .background(color = backgroundColor, shape = RoundedCornerShape(size = 8.dp))
-            .padding(16.dp)
-    ){
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            Image(
-                painter = painterResource(id = imageResource),
-                contentDescription = "Vehicle Icon",
-                modifier = Modifier.size(24.dp),
-                colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(iconColor)
-            )
-
-            Text(
-                text = "15 min",
-
-                style = TextStyle(
-                    fontSize = 12.sp,
-                    lineHeight = 14.sp,
-//                    fontFamily = FontFamily(Font(R.font.inter)),
-                    fontWeight = FontWeight(500),
-                    color = iconColor,
-                )
-            )
-        }
-    }
-}
-
-@Composable
-//@Preview
-fun DestinationCard(){
     Box(
         modifier = Modifier
             .width(393.dp)
             .height(334.dp)
-            .background(color = Color(0xFFFAFAFA), shape = RoundedCornerShape(size = 24.dp))
+            .background(color = onPrimaryFixed, shape = RoundedCornerShape(size = 24.dp))
             .padding(24.dp)
     ) {
         Column {
@@ -513,24 +550,24 @@ fun DestinationCard(){
                 modifier = Modifier.fillMaxWidth()
             ) {
                 VehicleUsedButton(
-                    isFocus = true,
+                    isFocus = vehicleUsed == "Car",
                     imageResource = R.drawable.ic_car,
-                    text = "15 min"
+                    duration = durationList.find { it.containsKey("Car") }?.get("Car") ?: "15 min"
                 )
                 VehicleUsedButton(
-                    isFocus = false,
+                    isFocus = vehicleUsed == "Motorcycle",
                     imageResource = R.drawable.ic_motorcycle,
-                    text = "15 min"
+                    duration = durationList.find { it.containsKey("Motorcycle") }?.get("Motorcycle") ?: "10 min"
                 )
                 VehicleUsedButton(
-                    isFocus = false,
+                    isFocus = vehicleUsed == "EV Cycle",
                     imageResource = R.drawable.ic_ev_cycle,
-                    text = "15 min"
+                    duration = durationList.find { it.containsKey("EV Cycle") }?.get("EV Cycle") ?: "20 min"
                 )
                 VehicleUsedButton(
-                    isFocus = false,
+                    isFocus = vehicleUsed == "Footprints",
                     imageResource = R.drawable.ic_footprints,
-                    text = "15 min"
+                    duration = durationList.find { it.containsKey("Footprints") }?.get("Footprints") ?: "30 min"
                 )
             }
 
@@ -546,12 +583,11 @@ fun DestinationCard(){
 }
 
 @Composable
-@Preview
+//@Preview
 fun TrackingStartedTopBar() {
     Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+            .fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
         Row(
@@ -561,18 +597,15 @@ fun TrackingStartedTopBar() {
             Image(
                 painter = painterResource(id = R.drawable.ic_back_arrow),
                 contentDescription = "Back",
-                modifier = Modifier.size(16.dp)
+                modifier = Modifier.size(24.dp)
             )
         }
 
         Text(
             text = "Track Your Destination",
-            style = TextStyle(
-                fontSize = 16.sp,
-                lineHeight = 20.sp,
+            style = AppTypography.titleMedium.copy(
                 fontWeight = FontWeight(600),
-                color = Color(0xFF1AA56A),
-                textAlign = TextAlign.Center,
+                color = trackingStarted
             ),
             modifier = Modifier.align(Alignment.Center)
         )
@@ -582,16 +615,20 @@ fun TrackingStartedTopBar() {
 
 @Composable
 //@Preview
-fun TrackingStartedCard(){
+fun TrackingStartedCard(
+    duration: String = "15 mnt",
+    distance: String = "500 m",
+    emission: String = "50"
+){
     Box(
         modifier = Modifier.fillMaxWidth()
-            .height(96.dp)
+            .height(88.dp)
     ){
         Box(
             modifier = Modifier
                 .width(32.dp)
                 .height(8.dp)
-                .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp))
+                .background(color = onPrimaryFixed, shape = RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp))
                 .align(Alignment.TopCenter)
         )
 
@@ -607,8 +644,8 @@ fun TrackingStartedCard(){
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(color = Color(0xFFFAFAFA), shape = RoundedCornerShape(size = 24.dp))
-                .padding(24.dp)
+                .background(color = onPrimaryFixed, shape = RoundedCornerShape(size = 24.dp))
+                .padding(vertical = 16.dp, horizontal = 24.dp)
                 .align(Alignment.BottomCenter)
         ){
             Row(
@@ -630,32 +667,25 @@ fun TrackingStartedCard(){
 
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
                     modifier = Modifier.weight(1f)
                 ) {
                     Text(
-                        text = "15 mnt",
+                        text = duration,
 
-                        // label/l16/Semi Bold
-                        style = TextStyle(
-                            fontSize = 16.sp,
-                            lineHeight = 20.sp,
-//                        fontFamily = FontFamily(Font(R.font.inter)),
+                        style = AppTypography.bodyLarge.copy(
                             fontWeight = FontWeight(600),
-                            color = Color(0xFF1AA56A)
+                            color = trackingStarted
                         )
                     )
 
                     Text(
-                        text = "500 m • 50 CO²g",
+                        text = "$distance • $emission CO²g",
 
 
-                        style = TextStyle(
-                            fontSize = 12.sp,
-                            lineHeight = 14.sp,
-//                        fontFamily = FontFamily(Font(R.font.inter)),
+                        style = AppTypography.bodyMedium.copy(
                             fontWeight = FontWeight(400),
-                            color = Color(0xFF000000)
+                            color = Color.Black
                         )
                     )
                 }
@@ -676,3 +706,132 @@ fun TrackingStartedCard(){
     }
 }
 
+@Composable
+//@Preview
+fun TrackingContent(
+    isSuggestionsVisible: Boolean = false,
+    isBottomBarHide: Boolean = false,
+    isLocationCardVisible: Boolean = false,
+    isDestinationCardVisible: Boolean = false,
+    isTrackingStarted: Boolean = false,
+){
+    val rememberIsSuggestionsVisible = remember { mutableStateOf(isSuggestionsVisible) }
+    val rememberIsBottomBarHide = remember { mutableStateOf(isBottomBarHide) }
+    val rememberIsLocationCardVisible = remember { mutableStateOf(isLocationCardVisible) }
+    val rememberIsDestinationCardVisible = remember { mutableStateOf(isDestinationCardVisible) }
+    val rememberIsTrackingStarted = remember { mutableStateOf(isTrackingStarted) }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .paint(
+                painterResource(id = R.drawable.bg_tmp_tracking),
+                contentScale = ContentScale.FillHeight
+            )
+    ){
+        Scaffold(
+            modifier = Modifier
+                .fillMaxSize(),
+            containerColor = Color.Transparent,
+            topBar = {
+                if(rememberIsTrackingStarted.value){
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(144.dp)
+                            .background(
+                                brush = Brush.verticalGradient(
+                                    colors = listOf(onPrimaryFixed, Color.Transparent),
+                                    startY = 0f,
+                                    endY = Float.POSITIVE_INFINITY
+                                )
+                            )
+                            .padding(horizontal = 24.dp)
+                    ){
+                        TrackingStartedTopBar()
+                    }
+                } else {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 56.dp, start = 24.dp, end = 24.dp)
+                    ) {
+                        TrackingSearchBar(onClick = {
+                            rememberIsSuggestionsVisible.value = true
+                        })
+
+                        if (rememberIsSuggestionsVisible.value) {
+                            SuggestionsContainer()
+                        }
+
+                    }
+                }
+            },
+            bottomBar = {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 24.dp, start = 24.dp, end = 24.dp)
+                ){
+                    if(!rememberIsBottomBarHide.value){
+                        FootworkBottomBar()
+                    }
+
+                    if(rememberIsTrackingStarted.value){
+                        TrackingStartedCard()
+                    }
+                }
+
+                if(rememberIsLocationCardVisible.value){
+                    LocationCard()
+                }
+
+                if(rememberIsDestinationCardVisible.value){
+                    DestinationCard()
+                }
+            }
+        ){ innerPadding ->
+            /* TODO */
+        }
+    }
+}
+
+@Composable
+@Preview(showSystemUi = true, apiLevel = 30)
+fun TrackingBaseScreen(){
+    TrackingContent()
+}
+
+@Composable
+@Preview(showSystemUi = true, apiLevel = 30)
+fun TrackingSearchingScreen(){
+    TrackingContent(
+        isSuggestionsVisible = true
+    )
+}
+
+@Composable
+@Preview(showSystemUi = true, apiLevel = 30)
+fun TrackingLocationDetailScreen(){
+    TrackingContent(
+        isLocationCardVisible = true
+    )
+}
+
+@Composable
+@Preview(showSystemUi = true, apiLevel = 30)
+fun TrackingPreStartScreen(){
+    TrackingContent(
+        isDestinationCardVisible = true
+    )
+}
+
+@Composable
+@Preview(showSystemUi = true, apiLevel = 30)
+fun TrackingStartedScreen(){
+    TrackingContent(
+        isBottomBarHide = true,
+        isTrackingStarted = true
+    )
+}
