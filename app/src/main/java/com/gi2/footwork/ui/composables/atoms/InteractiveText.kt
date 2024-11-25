@@ -15,6 +15,7 @@ fun InteractiveText(
   text: String,
   clickableText: String,
   onClick: () -> Unit,
+  enabled: Boolean = true,
 ) {
   val annotatedString = buildAnnotatedString {
     withStyle(
@@ -45,14 +46,20 @@ fun InteractiveText(
   }
 
   @Suppress("DEPRECATION")
-  (ClickableText(
+  ClickableText(
     annotatedString,
     modifier = modifier,
     style = MaterialTheme.typography.bodySmall,
     onClick = {
-      annotatedString.getStringAnnotations("Clickable", 0, clickableText.length)
-        .firstOrNull()
-        ?.let { onClick() }
+      if (enabled) {
+        annotatedString.getStringAnnotations(
+          "Clickable",
+          0,
+          clickableText.length
+        )
+          .firstOrNull()
+          ?.let { onClick() }
+      }
     }
-  ))
+  )
 }

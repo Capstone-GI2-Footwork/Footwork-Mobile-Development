@@ -15,12 +15,14 @@ fun BrandButton(
   modifier: Modifier = Modifier,
   text: String,
   onClick: () -> Unit,
+  enabled: Boolean = true,
   leadingContent: @Composable () -> Unit = {},
   trailingContent: @Composable () -> Unit = {},
 ) {
   Button(
     modifier = modifier,
     onClick = onClick,
+    enabled = enabled,
     shape = MaterialTheme.shapes.small,
     colors = ButtonDefaults.buttonColors().copy(
       containerColor = MaterialTheme.colorScheme.primaryContainer,

@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gi2.footwork.R
+import com.gi2.footwork.ui.common.UiStatus
 import com.gi2.footwork.ui.composables.atoms.*
 import com.gi2.footwork.ui.composables.common.keyboardAsState
 import com.gi2.footwork.ui.theme.FootworkTheme
@@ -105,6 +106,7 @@ private fun SignInScreenContent(
         ) {
           EmailTextField(
             modifier = Modifier.fillMaxWidth(),
+            enabled = state.status !is UiStatus.Loading,
             value = state.form.email,
             error = state.form.emailError,
             onValueChange = onEmailChange
@@ -112,6 +114,7 @@ private fun SignInScreenContent(
           Spacer(modifier = Modifier.height(16.dp))
           PasswordTextField(
             modifier = Modifier.fillMaxWidth(),
+            enabled = state.status !is UiStatus.Loading,
             value = state.form.password,
             error = state.form.passwordError,
             onValueChange = onPasswordChange,
@@ -133,6 +136,7 @@ private fun SignInScreenContent(
           BrandButton(
             modifier = Modifier.fillMaxWidth(),
             text = "Sign In",
+            enabled = state.status !is UiStatus.Loading,
             onClick = onSubmit
           )
           Text(
@@ -149,7 +153,8 @@ private fun SignInScreenContent(
           InteractiveText(
             text = "Don't have an account? ",
             clickableText = "Sign up Here",
-            onClick = onNavigateToSignUp
+            enabled = state.status !is UiStatus.Loading,
+            onClick = onNavigateToSignUp,
           )
         }
       }

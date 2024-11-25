@@ -39,6 +39,30 @@ class AuthRepositoryImpl @Inject constructor(
     return res
   }
 
+  override suspend fun signUpWithEmailAndPassword(
+    fullName: String,
+    email: String,
+    password: String,
+  ): Result<Unit> {
+    var res: Result<Unit> = Result.failure(NetworkError.InternalServer())
+
+    authService.signup(fullName, email, password)
+      .suspendOnSuccess {
+        res = if (data.isError) {
+          Result.failure(
+            NetworkError.BadRequest(
+              data.message ?: "Looks like this email is already taken."
+            )
+          )
+        } else {
+          prefsRepo.setAuthToken(data.token)
+          Result.success(Unit)
+        }
+      }
+
+    return res
+  }
+
   override suspend fun signOut(): Result<Unit> {
     prefsRepo.revokeAuthToken()
     return Result.success(Unit)
