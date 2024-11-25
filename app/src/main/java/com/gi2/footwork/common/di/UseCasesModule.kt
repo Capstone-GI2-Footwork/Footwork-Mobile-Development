@@ -1,8 +1,7 @@
 package com.gi2.footwork.common.di
 
 import com.gi2.footwork.domain.repositories.AuthRepository
-import com.gi2.footwork.domain.usecases.auth.GetUserUseCase
-import com.gi2.footwork.domain.usecases.auth.SignInUseCase
+import com.gi2.footwork.domain.usecases.auth.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,6 +28,16 @@ object UseCasesModule {
     @IoDispatcher ioDispatcher: CoroutineDispatcher,
     authRepository: AuthRepository,
   ) = SignInUseCase(
+    dispatcher = ioDispatcher,
+    authRepo = authRepository
+  )
+
+  @Provides
+  @Singleton
+  fun provideSignUpUseCase(
+    @IoDispatcher ioDispatcher: CoroutineDispatcher,
+    authRepository: AuthRepository,
+  ) = SignUpUseCase(
     dispatcher = ioDispatcher,
     authRepo = authRepository
   )

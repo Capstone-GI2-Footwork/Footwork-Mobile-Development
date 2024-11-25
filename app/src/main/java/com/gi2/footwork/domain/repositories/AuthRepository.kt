@@ -8,5 +8,11 @@ interface AuthRepository {
     password: String,
   ): Result<Unit>
 
+  suspend fun signUpWithEmailAndPassword(
+    fullName: String,
+    email: String,
+    password: String,
+  ): Result<Unit>
+
   suspend fun signOut(): Result<Unit>
 }

@@ -66,7 +66,7 @@ class SignInViewModel @Inject constructor(
                   form = SignInFormState.initial()
                 )
               }
-              postSideEffect(SignInSideEffect.OnNavigate)
+              postSideEffect(SignInSideEffect.OnSuccessNavigate)
               postSideEffect(
                 SignInSideEffect.ShowMessage(
                   "Sign in successful! Redirecting..."

@@ -25,6 +25,8 @@ import com.gi2.footwork.ui.viewmodel.auth.AuthSideEffect
 import com.gi2.footwork.ui.viewmodel.auth.AuthViewModel
 import com.gi2.footwork.ui.viewmodel.signin.SignInSideEffect
 import com.gi2.footwork.ui.viewmodel.signin.SignInViewModel
+import com.gi2.footwork.ui.viewmodel.signup.SignUpSideEffect
+import com.gi2.footwork.ui.viewmodel.signup.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -105,7 +107,7 @@ private fun NavGraphBuilder.addSignIn(
 
     viewModel.collectSideEffect { effect ->
       when (effect) {
-        SignInSideEffect.OnNavigate -> {
+        SignInSideEffect.OnSuccessNavigate -> {
           navController.navigate(FootworkRoute.Home) {
             popUpTo(FootworkRoute.Home) { inclusive = true }
           }
@@ -141,7 +143,28 @@ private fun NavGraphBuilder.addSignUp(
   navController: NavController,
 ) {
   composable<FootworkRoute.SignUp> {
+    val viewModel = it.scopedViewModel<SignUpViewModel>(navController)
+    val authViewModel = it.scopedViewModel<AuthViewModel>(navController)
+
+    val state by viewModel.collectAsState()
+    val context = LocalContext.current
+
+    viewModel.collectSideEffect { effect ->
+      when (effect) {
+        SignUpSideEffect.OnSuccessNavigate -> {
+          navController.navigate(FootworkRoute.Home) {
+            popUpTo(FootworkRoute.Home) { inclusive = true }
+          }
+        }
+
+        is SignUpSideEffect.ShowMessage -> {
+          Toast.makeText(context, effect.message, Toast.LENGTH_SHORT).show()
+        }
+      }
+    }
+
     SignUpScreen(
+      state = state,
       onBack = {
         navController.navigate(FootworkRoute.Onboarding) {
           popUpTo(FootworkRoute.Onboarding) { inclusive = true }
@@ -149,7 +172,14 @@ private fun NavGraphBuilder.addSignUp(
       },
       onNavigateToSignIn = {
         navController.navigate(FootworkRoute.SignIn)
-      }
+      },
+      onEmailChange = viewModel::onEmailChanged,
+      onPasswordChange = viewModel::onPasswordChanged,
+      onNameChange = viewModel::onFullNameChanged,
+      onSubmit = {
+        viewModel.onSubmit()
+        authViewModel.update()
+      },
     )
   }
 }
