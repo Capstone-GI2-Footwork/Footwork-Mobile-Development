@@ -59,7 +59,7 @@ private fun IndexScreenContent(
           .fillMaxSize()
           .padding(bottom = 24.dp)
           .paint(
-            painter = painterResource(R.drawable.img_footwork_illustration_onboarding),
+            painter = painterResource(R.drawable.img_illustration_onboarding),
             contentScale = ContentScale.FillWidth,
             alignment = Alignment.BottomCenter
           )

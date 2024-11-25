@@ -58,4 +58,29 @@ class AuthViewModel @Inject constructor(
       postSideEffect(AuthSideEffect.OnNavigate(route))
     }
   }
+
+  fun update() {
+    intent {
+      container.scope.launch {
+        getUserUseCase(Unit).fold(
+          onSuccess = { isAuthed ->
+            reduce {
+              state.copy(
+                status = UiStatus.Success,
+                isAuthed = isAuthed
+              )
+            }
+          },
+          onFailure = {
+            reduce {
+              state.copy(
+                status = UiStatus.Failure(it.message ?: ""),
+                isAuthed = false
+              )
+            }
+          }
+        )
+      }
+    }
+  }
 }
