@@ -63,7 +63,7 @@ private fun OnboardingScreenContent(
         modifier = Modifier
           .fillMaxSize()
           .paint(
-            painter = painterResource(R.drawable.img_footwork_illustration_onboarding),
+            painter = painterResource(R.drawable.img_illustration_onboarding),
             contentScale = ContentScale.FillWidth,
             alignment = Alignment.TopCenter
           )

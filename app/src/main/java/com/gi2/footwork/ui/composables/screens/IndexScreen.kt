@@ -13,29 +13,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.gi2.footwork.FootworkRoute
 import com.gi2.footwork.R
+import com.gi2.footwork.ui.common.UiStatus
 import com.gi2.footwork.ui.theme.FootworkTheme
+import com.gi2.footwork.ui.viewmodel.auth.AuthState
 import kotlinx.coroutines.delay
 
 @Composable
 fun IndexScreen(
   modifier: Modifier = Modifier,
-  navController: NavController,
+  onNavigate: () -> Unit,
+  state: AuthState,
 ) {
-  /**
-   * TODO: Implement AuthViewModel
-   * AuthViewModel should be able to check the user's auth status.
-   * Meanwhile, this screen will render loader and redirect to the next screen
-   */
-
-  LaunchedEffect(Unit) {
-    delay(3000L) // simulate user credential fetching
-    navController.navigate(FootworkRoute.Onboarding) {
-      popUpTo(FootworkRoute.Onboarding) {
-        inclusive = true
-      }
+  LaunchedEffect(state) {
+    delay(1000L)
+    if (state.status !is UiStatus.Loading) {
+      onNavigate()
     }
   }
 
@@ -66,7 +59,7 @@ private fun IndexScreenContent(
           .fillMaxSize()
           .padding(bottom = 24.dp)
           .paint(
-            painter = painterResource(R.drawable.img_footwork_illustration_onboarding),
+            painter = painterResource(R.drawable.img_illustration_onboarding),
             contentScale = ContentScale.FillWidth,
             alignment = Alignment.BottomCenter
           )
