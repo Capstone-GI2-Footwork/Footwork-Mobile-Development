@@ -2,8 +2,8 @@ package com.gi2.footwork.common.di
 
 import com.gi2.footwork.BuildConfig
 import com.gi2.footwork.common.lib.http.interceptors.AuthTokenInterceptor
-import com.gi2.footwork.data.network.auth.AuthService
-import com.gi2.footwork.domain.repositories.PreferencesRepository
+import com.gi2.footwork.features.Auth.domain.AuthService
+import com.gi2.footwork.common.repository.PreferencesRepository
 import com.skydoves.sandwich.retrofit.adapters.ApiResponseCallAdapterFactory
 import dagger.Module
 import dagger.Provides

@@ -1,7 +1,9 @@
 package com.gi2.footwork.common.di
 
-import com.gi2.footwork.domain.repositories.AuthRepository
-import com.gi2.footwork.domain.usecases.auth.*
+import com.gi2.footwork.features.Auth.domain.repository.AuthRepository
+import com.gi2.footwork.features.Auth.domain.use_case.GetUserUseCase
+import com.gi2.footwork.features.Auth.domain.use_case.SignInUseCase
+import com.gi2.footwork.features.Auth.domain.use_case.SignUpUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
