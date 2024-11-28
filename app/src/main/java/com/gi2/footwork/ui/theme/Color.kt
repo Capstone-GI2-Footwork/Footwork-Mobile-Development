@@ -259,3 +259,8 @@ val greenVerticalGradient = Brush.verticalGradient(
     Color(0xFF36B22F)
   )
 )
+
+val homeSectionTitle = Color(0xFF404040)
+val userGreetingSubText = Color(0xFFB8B8B8)
+val statsProgressIndicator = Color(0xFFFFB20D)
+val contributionProgressIndicatorTrack = Color(0xFF99DDA8)
