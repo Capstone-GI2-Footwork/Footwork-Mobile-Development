@@ -1,4 +1,4 @@
-package com.gi2.footwork.ui.composables.screens
+package com.gi2.footwork.features.Auth.presentation.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
@@ -15,6 +15,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.gi2.footwork.common.navigation.FootworkRoute
 import com.gi2.footwork.R
 import com.gi2.footwork.ui.composables.atoms.BrandButton
 import com.gi2.footwork.ui.theme.FootworkTheme
@@ -22,14 +24,16 @@ import com.gi2.footwork.ui.theme.FootworkTheme
 @Composable
 fun OnboardingScreen(
   modifier: Modifier = Modifier,
-  onSignUp: () -> Unit,
-  onSignIn: () -> Unit,
+  navController: NavController,
 ) {
-  //  TODO: Implement OnboardingViewModel
   OnboardingScreenContent(
     modifier = modifier,
-    onSignUp = onSignUp,
-    onSignIn = onSignIn
+    onSignUp = {
+      navController.navigate(FootworkRoute.SignUp)
+    },
+    onSignIn = {
+      navController.navigate(FootworkRoute.SignIn)
+    }
   )
 }
 
@@ -59,7 +63,7 @@ private fun OnboardingScreenContent(
         modifier = Modifier
           .fillMaxSize()
           .paint(
-            painter = painterResource(R.drawable.img_footwork_illustration_onboarding),
+            painter = painterResource(R.drawable.img_illustration_onboarding),
             contentScale = ContentScale.FillWidth,
             alignment = Alignment.TopCenter
           )
@@ -112,11 +116,11 @@ private fun NavigateToSignIn(
         )
         .toSpanStyle()
     ) {
-      append("Sign In")
+      append("Login Here")
       addStringAnnotation(
         tag = "SignIn",
         start = 0,
-        end = 7,
+        end = 10,
         annotation = "SignIn"
       )
     }
@@ -127,7 +131,7 @@ private fun NavigateToSignIn(
     annotatedString,
     style = MaterialTheme.typography.bodySmall,
     onClick = {
-      annotatedString.getStringAnnotations("SignUp", 0, 7)
+      annotatedString.getStringAnnotations("SignIn", 0, 10)
         .firstOrNull()
         ?.let { onNavigate() }
     }

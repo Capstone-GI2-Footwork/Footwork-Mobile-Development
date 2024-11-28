@@ -7,22 +7,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gi2.footwork.ui.theme.*
+import com.gi2.footwork.ui.theme.FootworkTheme
+import com.gi2.footwork.ui.theme.onPrimaryFixed
 
 @Composable
 fun BrandButton(
   modifier: Modifier = Modifier,
   text: String,
   onClick: () -> Unit,
+  enabled: Boolean = true,
   leadingContent: @Composable () -> Unit = {},
   trailingContent: @Composable () -> Unit = {},
 ) {
   Button(
     modifier = modifier,
     onClick = onClick,
+    enabled = enabled,
     shape = MaterialTheme.shapes.small,
     colors = ButtonDefaults.buttonColors().copy(
-      containerColor = primaryFixed,
+      containerColor = MaterialTheme.colorScheme.primaryContainer,
       contentColor = onPrimaryFixed,
     )
   ) {

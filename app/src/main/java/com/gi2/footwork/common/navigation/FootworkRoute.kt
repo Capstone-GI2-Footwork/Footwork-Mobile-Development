@@ -1,4 +1,4 @@
-package com.gi2.footwork.ui.composables.screens
+package com.gi2.footwork.common.navigation
 
 import kotlinx.serialization.Serializable
 
@@ -16,4 +16,7 @@ sealed class FootworkRoute {
 
   @Serializable
   data object SignUp : FootworkRoute()
+
+  @Serializable
+  data object Home : FootworkRoute()
 }
