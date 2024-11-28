@@ -1,4 +1,4 @@
-import java.util.Properties
+//import java.util.Properties
 
 plugins {
   alias(libs.plugins.androidApplication)
@@ -12,10 +12,10 @@ plugins {
   alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
-composeCompiler {
-    enableStrongSkippingMode = true
-    reportsDestination = layout.buildDirectory.dir("compose_compiler")
-}
+//composeCompiler {
+//    enableStrongSkippingMode = true
+//    reportsDestination = layout.buildDirectory.dir("compose_compiler")
+//}
 
 android {
   namespace = "com.gi2.footwork"
@@ -35,14 +35,14 @@ android {
     }
 
     //load the values from .properties file
-        val keystoreFile = project.rootProject.file("secrets.properties")
-        val properties = Properties()
-        properties.load(keystoreFile.inputStream())
-
-        //return empty key in case something goes wrong
-        val apiKey = properties.getProperty("MAPS_API_KEY") ?: ""
-        buildConfigField("String", "MAPS_API_KEY","\"${properties.getProperty("MAPS_API_KEY")}\"")
-        manifestPlaceholders["MAPS_API_KEY"] = apiKey
+//        val keystoreFile = project.rootProject.file("secrets.properties")
+//        val properties = Properties()
+//        properties.load(keystoreFile.inputStream())
+//
+//        //return empty key in case something goes wrong
+//        val apiKey = properties.getProperty("MAPS_API_KEY") ?: ""
+//        buildConfigField("String", "MAPS_API_KEY","\"${properties.getProperty("MAPS_API_KEY")}\"")
+//        manifestPlaceholders["MAPS_API_KEY"] = apiKey
   }
 
   buildTypes {
@@ -63,7 +63,6 @@ android {
   }
   buildFeatures {
     compose = true
-    buildConfig = true
   }
   composeOptions {
     kotlinCompilerExtensionVersion = "1.5.1"
