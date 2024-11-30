@@ -271,3 +271,8 @@ val destinationBackground = Color(0x40D8D8D8)
 val destinationText = Color(0xFF404040)
 val destinationDivider = Color(0xFFD8D8D8)
 val trackingStarted = Color(0xFF1AA56A)
+
+val homeSectionTitle = Color(0xFF404040)
+val userGreetingSubText = Color(0xFFB8B8B8)
+val statsProgressIndicator = Color(0xFFFFB20D)
+val contributionProgressIndicatorTrack = Color(0xFF99DDA8)
