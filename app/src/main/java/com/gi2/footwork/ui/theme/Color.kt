@@ -260,6 +260,18 @@ val greenVerticalGradient = Brush.verticalGradient(
   )
 )
 
+val unselectedNavigation = Color(0xFF7B7B7B)
+val suggestionBackground = Color(0x80FAFAFA)
+val suggestionText = Color(0xFF7B7B7B)
+val locationCardTitle = Color(0xFF404040)
+val locationCardSubtitle = Color(0xFFAEAEAE)
+val locationOpen = Color(0xFF00AA25)
+val locationOpenBackground = Color(0x0D00AA25)
+val destinationBackground = Color(0x40D8D8D8)
+val destinationText = Color(0xFF404040)
+val destinationDivider = Color(0xFFD8D8D8)
+val trackingStarted = Color(0xFF1AA56A)
+
 val homeSectionTitle = Color(0xFF404040)
 val userGreetingSubText = Color(0xFFB8B8B8)
 val statsProgressIndicator = Color(0xFFFFB20D)
