@@ -1,5 +1,6 @@
 package com.gi2.footwork.features.Auth.presentation.viewmodel.signup
 
+import android.util.Log
 import android.util.Patterns
 import androidx.compose.runtime.Immutable
 
@@ -24,15 +25,17 @@ data class SignUpFormState(
   }
 
   fun validateFullName(): String {
+
     if (fullName.isEmpty()) return "Full name cannot be empty."
     if (fullName.length < 3) return "Full name must be at least 3 characters."
     return ""
   }
 
   fun validateEmail(): String {
+    Log.d("validate","$email")
     if (email.isEmpty()) return "Email cannot be empty."
     if (
-      Patterns.EMAIL_ADDRESS
+      !Patterns.EMAIL_ADDRESS
         .matcher(email)
         .matches()
     ) return "Please use a valid email address."
