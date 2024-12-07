@@ -1,5 +1,6 @@
-package com.gi2.footwork.ui.composables.screens
+package com.gi2.footwork.features.Home.presentation.screen
 
+import BottomNavigationBar
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -13,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -53,11 +53,11 @@ import androidx.compose.ui.zIndex
 import com.gi2.footwork.R
 import com.gi2.footwork.ui.theme.AppTypography
 import com.gi2.footwork.ui.theme.contributionProgressIndicatorTrack
+import com.gi2.footwork.ui.theme.homeSectionTitle
 import com.gi2.footwork.ui.theme.onPrimaryFixed
+import com.gi2.footwork.ui.theme.primaryFixed
 import com.gi2.footwork.ui.theme.statsProgressIndicator
 import com.gi2.footwork.ui.theme.userGreetingSubText
-import com.gi2.footwork.ui.theme.homeSectionTitle
-import com.gi2.footwork.ui.theme.primaryFixed
 
 
 @Composable
@@ -66,7 +66,7 @@ fun HomeAppBar(
     userName: String = "Arnold",
     date: String = "Aug 17, 2024",
     userPhoto: Int = R.drawable.user_avatar
-){
+) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
@@ -77,12 +77,10 @@ fun HomeAppBar(
         Row(
             horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .padding(start = 16.dp)
+            modifier = Modifier.padding(start = 16.dp)
         ) {
             Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
+                contentAlignment = Alignment.Center, modifier = Modifier
                     .shadow(
                         elevation = 4.dp,
                         shape = RoundedCornerShape(8.dp),
@@ -116,8 +114,7 @@ fun HomeAppBar(
                     text = date,
 
                     style = AppTypography.bodySmall.copy(
-                        fontWeight = FontWeight(400),
-                        color = userGreetingSubText
+                        fontWeight = FontWeight(400), color = userGreetingSubText
                     )
                 )
             }
@@ -157,20 +154,25 @@ fun HomeScreenContent(
                         color = onPrimaryFixed
                     )
                     .padding(
-                        top = 0.dp,
-                        start = 8.dp,
-                        bottom = 16.dp,
-                        end = 24.dp
+                        top = 0.dp, start = 8.dp, bottom = 16.dp, end = 24.dp
                     )
 
-            ){
+            ) {
                 HomeAppBar()
             }
         },
-        containerColor = onPrimaryFixed,
-        modifier = Modifier
-            .fillMaxSize()
+        bottomBar = {
+            Row(modifier= Modifier.fillMaxWidth().height(120.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically) {
+                BottomNavigationBar()
+            }
+            },
+        containerColor = onPrimaryFixed, modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
+
+
+
         Column(
             modifier = Modifier
                 .verticalScroll(scrollState)
@@ -186,8 +188,7 @@ fun HomeScreenContent(
                 text = "Contribution",
 
                 style = AppTypography.titleMedium.copy(
-                    fontWeight = FontWeight(600),
-                    color = homeSectionTitle
+                    fontWeight = FontWeight(600), color = homeSectionTitle
                 ),
 
                 modifier = Modifier
@@ -205,8 +206,7 @@ fun HomeScreenContent(
                 text = "Challenges",
 
                 style = AppTypography.titleMedium.copy(
-                    fontWeight = FontWeight(600),
-                    color = homeSectionTitle
+                    fontWeight = FontWeight(600), color = homeSectionTitle
                 ),
 
                 modifier = Modifier
@@ -218,9 +218,7 @@ fun HomeScreenContent(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 ChallengeCard(
-                    name = "Share positive moments",
-                    done = 7,
-                    total = 7
+                    name = "Share positive moments", done = 7, total = 7
                 )
                 repeat(3) {
                     ChallengeCard()
@@ -240,40 +238,36 @@ fun CardContainer() {
     ) {
         val progress = 0.5f
 
-        Box(
-            modifier = Modifier
-                .width(165.dp)
-                .height(168.dp)
-                .clip(RoundedCornerShape(12.dp))
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color(0xFFFF758E),
-                            Color(0xFFB22F47),
-                        )
-                    ),
+        Box(modifier = Modifier
+            .width(165.dp)
+            .height(168.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFFFF758E),
+                        Color(0xFFB22F47),
+                    )
+                ),
+            )
+            .drawBehind {
+                drawCircle(
+                    color = Color(0x1AFFFFFF), radius = 75.dp.toPx(), center = Offset(70f, 20f)
                 )
-                .drawBehind {
-                    drawCircle(
-                        color = Color(0x1AFFFFFF),
-                        radius = 75.dp.toPx(),
-                        center = Offset(70f, 20f)
-                    )
 
-                    drawCircle(
-                        color = Color(0x1AFFFFFF),
-                        radius = 120.dp.toPx(),
-                        center = Offset(370f, 150f)
-                    )
+                drawCircle(
+                    color = Color(0x1AFFFFFF),
+                    radius = 120.dp.toPx(),
+                    center = Offset(370f, 150f)
+                )
 
-                    drawCircle(
-                        color = Color(0x1AFFFFFF),
-                        radius = 99.dp.toPx(),
-                        center = Offset(370f, 210f)
-                    )
-                }
-                .padding(12.dp)
-        ) {
+                drawCircle(
+                    color = Color(0x1AFFFFFF),
+                    radius = 99.dp.toPx(),
+                    center = Offset(370f, 210f)
+                )
+            }
+            .padding(12.dp)) {
             Column {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.Start),
@@ -305,15 +299,13 @@ fun CardContainer() {
                     text = "$emission CO²g",
 
                     style = AppTypography.labelMedium.copy(
-                        fontWeight = FontWeight(400),
-                        color = onPrimaryFixed
+                        fontWeight = FontWeight(400), color = onPrimaryFixed
                     )
                 )
             }
 
             Box(
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
+                modifier = Modifier.align(Alignment.BottomEnd)
             ) {
                 CircularProgressIndicator(
                     progress = { progress },
@@ -331,12 +323,10 @@ fun CardContainer() {
                     text = distance,
 
                     style = AppTypography.labelMedium.copy(
-                        fontWeight = FontWeight(700),
-                        color = onPrimaryFixed
+                        fontWeight = FontWeight(700), color = onPrimaryFixed
                     ),
 
-                    modifier = Modifier
-                        .align(Alignment.Center)
+                    modifier = Modifier.align(Alignment.Center)
                 )
             }
         }
@@ -349,50 +339,48 @@ fun CardContainer() {
     ) {
         val progress = distance / target
 
-        Box(
-            modifier = Modifier
-                .width(165.dp)
-                .height(168.dp)
-                .clip(RoundedCornerShape(12.dp))
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color(0xFF5ECCFF),
-                            Color(0xFF2F80B2),
-                        )
-                    ),
-                )
-                .drawBehind {
-                    rotate(-5f) {
-                        drawRoundRect(
-                            cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
-                            color = Color(0x1AFFFFFF),
-                            size = Size(125.dp.toPx(), 125.dp.toPx()),
-                            topLeft = Offset((-68).dp.toPx(), 78.dp.toPx()),
-                        )
-                    }
-
-                    rotate(-5f) {
-                        drawRoundRect(
-                            cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
-                            color = Color(0x1AFFFFFF),
-                            size = Size(125.dp.toPx(), 125.dp.toPx()),
-                            topLeft = Offset((-33).dp.toPx(), 120.dp.toPx()),
-                        )
-                    }
-
-                    rotate(-45f) {
-                        drawRoundRect(
-                            cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
-                            color = Color(0x1AFFFFFF),
-                            size = Size(125.dp.toPx(), 125.dp.toPx()),
-                            topLeft = Offset(120.dp.toPx(), (-30).dp.toPx()),
-                        )
-                    }
-
+        Box(modifier = Modifier
+            .width(165.dp)
+            .height(168.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFF5ECCFF),
+                        Color(0xFF2F80B2),
+                    )
+                ),
+            )
+            .drawBehind {
+                rotate(-5f) {
+                    drawRoundRect(
+                        cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
+                        color = Color(0x1AFFFFFF),
+                        size = Size(125.dp.toPx(), 125.dp.toPx()),
+                        topLeft = Offset((-68).dp.toPx(), 78.dp.toPx()),
+                    )
                 }
-                .padding(12.dp)
-        ) {
+
+                rotate(-5f) {
+                    drawRoundRect(
+                        cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
+                        color = Color(0x1AFFFFFF),
+                        size = Size(125.dp.toPx(), 125.dp.toPx()),
+                        topLeft = Offset((-33).dp.toPx(), 120.dp.toPx()),
+                    )
+                }
+
+                rotate(-45f) {
+                    drawRoundRect(
+                        cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
+                        color = Color(0x1AFFFFFF),
+                        size = Size(125.dp.toPx(), 125.dp.toPx()),
+                        topLeft = Offset(120.dp.toPx(), (-30).dp.toPx()),
+                    )
+                }
+
+            }
+            .padding(12.dp)) {
             Column {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.Start),
@@ -424,15 +412,13 @@ fun CardContainer() {
                     text = "${distance.toInt()} Km",
 
                     style = AppTypography.labelMedium.copy(
-                        fontWeight = FontWeight(400),
-                        color = onPrimaryFixed
+                        fontWeight = FontWeight(400), color = onPrimaryFixed
                     )
                 )
             }
 
             Box(
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
+                modifier = Modifier.align(Alignment.BottomEnd)
             ) {
                 CircularProgressIndicator(
                     progress = { progress },
@@ -449,15 +435,13 @@ fun CardContainer() {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .align(Alignment.Center)
+                    modifier = Modifier.align(Alignment.Center)
                 ) {
                     Text(
                         text = "${distance.toInt()}Km",
 
                         style = AppTypography.labelMedium.copy(
-                            fontWeight = FontWeight(700),
-                            color = onPrimaryFixed
+                            fontWeight = FontWeight(700), color = onPrimaryFixed
                         )
                     )
 
@@ -485,68 +469,66 @@ fun CardContainer() {
         val progress = distance / target
         val targetKm = target / 1000
 
-        Box(
-            modifier = Modifier
-                .width(165.dp)
-                .height(168.dp)
-                .clip(RoundedCornerShape(12.dp))
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color(0xFFFF5ED1),
-                            Color(0xFFB22F84),
-                        )
-                    ),
-                )
-                .drawBehind {
-                    rotate(35f) {
-                        drawRoundRect(
-                            cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
-                            color = Color(0x1AFFFFFF),
-                            size = Size(200.dp.toPx(), 200.dp.toPx()),
-                            topLeft = Offset((0).dp.toPx(), 115.dp.toPx()),
-                        )
-                    }
-
-                    rotate(35f) {
-                        drawRoundRect(
-                            cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
-                            color = Color(0x1AFFFFFF),
-                            size = Size(200.dp.toPx(), 200.dp.toPx()),
-                            topLeft = Offset((0).dp.toPx(), 135.dp.toPx()),
-                        )
-                    }
-
-                    rotate(35f) {
-                        drawRoundRect(
-                            cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
-                            color = Color(0x1AFFFFFF),
-                            size = Size(200.dp.toPx(), 200.dp.toPx()),
-                            topLeft = Offset((0).dp.toPx(), 155.dp.toPx()),
-                        )
-                    }
-
-                    rotate(35f) {
-                        drawRoundRect(
-                            cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
-                            color = Color(0x1AFFFFFF),
-                            size = Size(150.dp.toPx(), 125.dp.toPx()),
-                            topLeft = Offset((-25).dp.toPx(), (-55).dp.toPx()),
-                        )
-                    }
-
-                    rotate(35f) {
-                        drawRoundRect(
-                            cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
-                            color = Color(0x1AFFFFFF),
-                            size = Size(140.dp.toPx(), 125.dp.toPx()),
-                            topLeft = Offset((-35).dp.toPx(), (-75).dp.toPx()),
-                        )
-                    }
-
+        Box(modifier = Modifier
+            .width(165.dp)
+            .height(168.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFFFF5ED1),
+                        Color(0xFFB22F84),
+                    )
+                ),
+            )
+            .drawBehind {
+                rotate(35f) {
+                    drawRoundRect(
+                        cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
+                        color = Color(0x1AFFFFFF),
+                        size = Size(200.dp.toPx(), 200.dp.toPx()),
+                        topLeft = Offset((0).dp.toPx(), 115.dp.toPx()),
+                    )
                 }
-                .padding(12.dp)
-        ) {
+
+                rotate(35f) {
+                    drawRoundRect(
+                        cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
+                        color = Color(0x1AFFFFFF),
+                        size = Size(200.dp.toPx(), 200.dp.toPx()),
+                        topLeft = Offset((0).dp.toPx(), 135.dp.toPx()),
+                    )
+                }
+
+                rotate(35f) {
+                    drawRoundRect(
+                        cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
+                        color = Color(0x1AFFFFFF),
+                        size = Size(200.dp.toPx(), 200.dp.toPx()),
+                        topLeft = Offset((0).dp.toPx(), 155.dp.toPx()),
+                    )
+                }
+
+                rotate(35f) {
+                    drawRoundRect(
+                        cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
+                        color = Color(0x1AFFFFFF),
+                        size = Size(150.dp.toPx(), 125.dp.toPx()),
+                        topLeft = Offset((-25).dp.toPx(), (-55).dp.toPx()),
+                    )
+                }
+
+                rotate(35f) {
+                    drawRoundRect(
+                        cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
+                        color = Color(0x1AFFFFFF),
+                        size = Size(140.dp.toPx(), 125.dp.toPx()),
+                        topLeft = Offset((-35).dp.toPx(), (-75).dp.toPx()),
+                    )
+                }
+
+            }
+            .padding(12.dp)) {
             Column {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.Start),
@@ -578,15 +560,13 @@ fun CardContainer() {
                     text = "${distance.toInt()} m",
 
                     style = AppTypography.labelMedium.copy(
-                        fontWeight = FontWeight(400),
-                        color = onPrimaryFixed
+                        fontWeight = FontWeight(400), color = onPrimaryFixed
                     )
                 )
             }
 
             Box(
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
+                modifier = Modifier.align(Alignment.BottomEnd)
             ) {
                 CircularProgressIndicator(
                     progress = { progress },
@@ -603,15 +583,13 @@ fun CardContainer() {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .align(Alignment.Center)
+                    modifier = Modifier.align(Alignment.Center)
                 ) {
                     Text(
                         text = "${distance.toInt()}m",
 
                         style = AppTypography.labelMedium.copy(
-                            fontWeight = FontWeight(700),
-                            color = onPrimaryFixed
+                            fontWeight = FontWeight(700), color = onPrimaryFixed
                         )
                     )
 
@@ -639,47 +617,45 @@ fun CardContainer() {
         val progress = distance / target
         val targetKm = target / 1000
 
-        Box(
-            modifier = Modifier
-                .width(165.dp)
-                .height(168.dp)
-                .clip(RoundedCornerShape(12.dp))
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color(0xFFB675FF),
-                            Color(0xFF752FB2),
-                        )
-                    ),
-                )
-                .drawBehind {
-                    rotate(35f) {
-                        drawRoundRect(
-                            cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
-                            color = Color(0x1AFFFFFF),
-                            size = Size(163.dp.toPx(), 163.dp.toPx()),
-                            topLeft = Offset((50).dp.toPx(), (50).dp.toPx()),
-                        )
-                    }
-
-                    rotate(35f) {
-                        drawRoundRect(
-                            cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
-                            color = Color(0x1AFFFFFF),
-                            size = Size(188.dp.toPx(), 188.dp.toPx()),
-                            topLeft = Offset((25).dp.toPx(), (-80).dp.toPx()),
-                        )
-                    }
-
-                    drawCircle(
-                        color = Color(0x1AFFFFFF),
-                        radius = 60.dp.toPx(),
-                        center = Offset(20.dp.toPx(), 230f)
+        Box(modifier = Modifier
+            .width(165.dp)
+            .height(168.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFFB675FF),
+                        Color(0xFF752FB2),
                     )
-
+                ),
+            )
+            .drawBehind {
+                rotate(35f) {
+                    drawRoundRect(
+                        cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
+                        color = Color(0x1AFFFFFF),
+                        size = Size(163.dp.toPx(), 163.dp.toPx()),
+                        topLeft = Offset((50).dp.toPx(), (50).dp.toPx()),
+                    )
                 }
-                .padding(12.dp)
-        ) {
+
+                rotate(35f) {
+                    drawRoundRect(
+                        cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
+                        color = Color(0x1AFFFFFF),
+                        size = Size(188.dp.toPx(), 188.dp.toPx()),
+                        topLeft = Offset((25).dp.toPx(), (-80).dp.toPx()),
+                    )
+                }
+
+                drawCircle(
+                    color = Color(0x1AFFFFFF),
+                    radius = 60.dp.toPx(),
+                    center = Offset(20.dp.toPx(), 230f)
+                )
+
+            }
+            .padding(12.dp)) {
             Column {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.Start),
@@ -711,15 +687,13 @@ fun CardContainer() {
                     text = "${distance.toInt()} m",
 
                     style = AppTypography.labelMedium.copy(
-                        fontWeight = FontWeight(400),
-                        color = onPrimaryFixed
+                        fontWeight = FontWeight(400), color = onPrimaryFixed
                     )
                 )
             }
 
             Box(
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
+                modifier = Modifier.align(Alignment.BottomEnd)
             ) {
                 CircularProgressIndicator(
                     progress = { progress },
@@ -736,15 +710,13 @@ fun CardContainer() {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .align(Alignment.Center)
+                    modifier = Modifier.align(Alignment.Center)
                 ) {
                     Text(
                         text = "${distance.toInt()}m",
 
                         style = AppTypography.labelMedium.copy(
-                            fontWeight = FontWeight(700),
-                            color = onPrimaryFixed
+                            fontWeight = FontWeight(700), color = onPrimaryFixed
                         )
                     )
 
@@ -766,8 +738,7 @@ fun CardContainer() {
 
     LazyHorizontalGrid(
         rows = GridCells.Fixed(2),
-        modifier = Modifier
-            .height(352.dp),
+        modifier = Modifier.height(352.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -802,7 +773,7 @@ fun ContributionCard(
             .fillMaxWidth()
             .height(376.dp)
             .clip(RoundedCornerShape(16.dp))
-    ){
+    ) {
         Image(
             painter = painterResource(id = R.drawable.bg_contribution),
             contentDescription = "Contribution background",
@@ -817,8 +788,7 @@ fun ContributionCard(
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
                 .background(
-                    color = Color.White.copy(alpha = 0.75f),
-                    shape = RoundedCornerShape(16.dp)
+                    color = Color.White.copy(alpha = 0.75f), shape = RoundedCornerShape(16.dp)
                 )
         ) {
             Row(
@@ -829,9 +799,8 @@ fun ContributionCard(
             ) {
                 Box(
                     contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                ){
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                ) {
                     CircularProgressIndicator(
                         progress = { totalEmissionProgress },
                         color = primaryFixed,
@@ -847,15 +816,13 @@ fun ContributionCard(
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center,
-                        modifier = Modifier
-                            .align(Alignment.Center)
+                        modifier = Modifier.align(Alignment.Center)
                     ) {
                         Text(
                             text = "${emissionTotal.toInt()} kg",
 
                             style = AppTypography.titleMedium.copy(
-                                fontWeight = FontWeight(600),
-                                color = homeSectionTitle
+                                fontWeight = FontWeight(600), color = homeSectionTitle
                             )
                         )
 
@@ -863,8 +830,7 @@ fun ContributionCard(
                             text = "CO2",
 
                             style = AppTypography.bodySmall.copy(
-                                fontWeight = FontWeight(600),
-                                color = Color(0xFF00881E)
+                                fontWeight = FontWeight(600), color = Color(0xFF00881E)
                             )
                         )
                     }
@@ -880,9 +846,8 @@ fun ContributionCard(
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically),
-                    modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                ){
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_scooter),
                         contentDescription = "Motorcycle Icon",
@@ -896,8 +861,7 @@ fun ContributionCard(
                         text = "Motorcycle",
 
                         style = AppTypography.labelSmall.copy(
-                            fontWeight = FontWeight(500),
-                            color = Color(0xFF101010)
+                            fontWeight = FontWeight(500), color = Color(0xFF101010)
                         )
                     )
 
@@ -908,16 +872,14 @@ fun ContributionCard(
                         gapSize = (-4).dp,
                         strokeCap = StrokeCap.Round,
                         drawStopIndicator = {},
-                        modifier = Modifier
-                            .width(70.dp)
+                        modifier = Modifier.width(70.dp)
                     )
 
                     Text(
                         text = "${emissionFromMotorcycle.toInt()} kg CO2",
 
                         style = AppTypography.labelSmall.copy(
-                            fontWeight = FontWeight(500),
-                            color = Color(0xFF101010)
+                            fontWeight = FontWeight(500), color = Color(0xFF101010)
                         )
                     )
                 }
@@ -932,9 +894,8 @@ fun ContributionCard(
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically),
-                    modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                ){
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_bus),
                         contentDescription = "Car icon",
@@ -948,8 +909,7 @@ fun ContributionCard(
                         text = "Car",
 
                         style = AppTypography.labelSmall.copy(
-                            fontWeight = FontWeight(500),
-                            color = Color(0xFF101010)
+                            fontWeight = FontWeight(500), color = Color(0xFF101010)
                         )
                     )
 
@@ -960,16 +920,14 @@ fun ContributionCard(
                         gapSize = (-4).dp,
                         strokeCap = StrokeCap.Round,
                         drawStopIndicator = {},
-                        modifier = Modifier
-                            .width(70.dp)
+                        modifier = Modifier.width(70.dp)
                     )
 
                     Text(
                         text = "${emissionFromCar.toInt()} kg CO2",
 
                         style = AppTypography.labelSmall.copy(
-                            fontWeight = FontWeight(500),
-                            color = Color(0xFF101010)
+                            fontWeight = FontWeight(500), color = Color(0xFF101010)
                         )
                     )
                 }
@@ -982,9 +940,7 @@ fun ContributionCard(
 @Composable
 //@Preview(showBackground = true)
 fun ChallengeCard(
-    name: String = "Share positive moments",
-    done: Int = 5,
-    total: Int = 7
+    name: String = "Share positive moments", done: Int = 5, total: Int = 7
 ) {
     val challengeProgress = done.toFloat() / total
 
@@ -992,7 +948,7 @@ fun ChallengeCard(
     fun ChallengeProgressIndicator(
         modifier: Modifier = Modifier,
         progress: Float = 0.3f,
-        color : Color = primaryFixed,
+        color: Color = primaryFixed,
         trackColor: Color = Color(0xFFF4F3F3),
         clipShape: Shape = RoundedCornerShape(6.dp),
     ) {
@@ -1015,20 +971,16 @@ fun ChallengeCard(
 
     @Composable
     fun ClaimButton(
-        modifier: Modifier = Modifier,
-        onClick: () -> Unit
+        modifier: Modifier = Modifier, onClick: () -> Unit
     ) {
-        Box(
-            modifier = modifier
-                .clickable { onClick() }
-        ){
+        Box(modifier = modifier.clickable { onClick() }) {
 //            Red Dot
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(end = 12.dp)
                     .zIndex(2f)
-            ){
+            ) {
                 Box(
                     modifier = Modifier
                         .size(12.dp)
@@ -1038,10 +990,8 @@ fun ChallengeCard(
             }
 
             Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .padding(vertical = 6.dp)
-            ){
+                contentAlignment = Alignment.Center, modifier = Modifier.padding(vertical = 6.dp)
+            ) {
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
@@ -1053,8 +1003,7 @@ fun ChallengeCard(
                         text = "Claim",
 
                         style = AppTypography.labelLarge.copy(
-                            fontWeight = FontWeight(600),
-                            color = onPrimaryFixed
+                            fontWeight = FontWeight(600), color = onPrimaryFixed
                         )
                     )
                 }
@@ -1067,9 +1016,7 @@ fun ChallengeCard(
         horizontalAlignment = Alignment.Start,
         modifier = Modifier
             .shadow(
-                elevation = 8.dp,
-                spotColor = Color(0x14000000),
-                ambientColor = Color(0x14000000)
+                elevation = 8.dp, spotColor = Color(0x14000000), ambientColor = Color(0x14000000)
             )
             .width(345.dp)
             .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = 12.dp))
@@ -1079,30 +1026,24 @@ fun ChallengeCard(
             text = name,
 
             style = AppTypography.titleMedium.copy(
-                fontWeight = FontWeight(500),
-                color = homeSectionTitle
+                fontWeight = FontWeight(500), color = homeSectionTitle
             )
         )
 
         Box(
-            contentAlignment = Alignment.CenterStart,
-            modifier = Modifier
-                .fillMaxWidth()
-        ){
+            contentAlignment = Alignment.CenterStart, modifier = Modifier.fillMaxWidth()
+        ) {
             val isCompleted = (done == total)
 
             if (isCompleted) {
-                ClaimButton(
-                    modifier = Modifier
-                        .align(Alignment.CenterStart)
-                        .fillMaxWidth()
-                        .padding(end = 64.dp)
-                        .zIndex(1f)
-                        .height(54.dp),
-                    onClick = {
-                        /* TODO */
-                    }
-                )
+                ClaimButton(modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .fillMaxWidth()
+                    .padding(end = 64.dp)
+                    .zIndex(1f)
+                    .height(54.dp), onClick = {
+                    /* TODO */
+                })
             }
 
             Row(
@@ -1121,19 +1062,16 @@ fun ChallengeCard(
                     modifier = Modifier
                         .weight(1f)
                         .height(24.dp)
-                ){
+                ) {
                     ChallengeProgressIndicator(
-                        progress = challengeProgress,
-                        modifier = Modifier
-                            .height(24.dp)
+                        progress = challengeProgress, modifier = Modifier.height(24.dp)
                     )
 
                     Text(
                         text = "$done/$total",
 
                         style = AppTypography.labelLarge.copy(
-                            fontWeight = FontWeight(600),
-                            color = onPrimaryFixed
+                            fontWeight = FontWeight(600), color = onPrimaryFixed
                         )
                     )
                 }
@@ -1145,8 +1083,7 @@ fun ChallengeCard(
                     text = done.toString(),
 
                     style = AppTypography.titleLarge.copy(
-                        fontWeight = FontWeight(600),
-                        color = Color(0xFFEAB01C)
+                        fontWeight = FontWeight(600), color = Color(0xFFEAB01C)
                     )
                 )
 
@@ -1161,9 +1098,9 @@ fun ChallengeCard(
 }
 
 @Composable
-@Preview(showBackground = true, showSystemUi = true, apiLevel = 30)
+@Preview(showBackground = true, showSystemUi = true)
 fun HomeScreenPreview(
 
-){
+) {
     HomeScreenContent()
 }

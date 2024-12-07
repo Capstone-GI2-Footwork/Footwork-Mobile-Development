@@ -1,6 +1,5 @@
 package com.gi2.footwork.features.Auth.presentation.viewmodel.signup
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gi2.footwork.common.helper.UiStatus
@@ -73,12 +72,10 @@ class SignUpViewModel @Inject constructor(
                     )
                 )
 
-                Log.d("res-signup", response.toString())
-
                 if (response.isSuccess) {
                     reduce { state.copy(status = UiStatus.Success) }
                     postSideEffect(SignUpSideEffect.OnSuccessNavigate)
-                }else{
+                } else {
                     reduce { state.copy(status = UiStatus.Failure("Something went wrong")) }
                 }
 
