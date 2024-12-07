@@ -1,5 +1,6 @@
 package com.gi2.footwork.ui.composables.screens
 
+import BottomNavigationBar
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -98,119 +99,7 @@ fun TrackingSearchBar(
     }
 }
 
-@Composable
-//@Preview
-fun FootworkBottomBar() {
-    var selectedItem by remember { mutableStateOf("Home") }
 
-    @Composable
-    fun NavigationItem(
-        iconRes: Int,
-        contentDescription: String,
-        isSelected: Boolean,
-        onClick: () -> Unit
-    ) {
-        IconButton(
-            onClick = onClick,
-            modifier = Modifier.size(48.dp)
-        ) {
-            Icon(
-                painter = painterResource(id = iconRes),
-                contentDescription = contentDescription,
-                modifier = Modifier.size(24.dp),
-                tint = if (isSelected) {
-                    primaryFixed
-                } else {
-                    unselectedNavigation
-                }
-            )
-        }
-    }
-
-    @Composable
-    fun NavigationBar(
-        selectedItem: String,
-        onItemSelected: (String) -> Unit,
-        modifier: Modifier = Modifier
-    ) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = modifier
-                .shadow(elevation = 12.dp)
-                .background(color = onPrimaryFixed, shape = RoundedCornerShape(size = 16.dp))
-                .padding(vertical = 4.dp)
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround,
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                NavigationItem(
-                    iconRes = R.drawable.ic_bottombar_home,
-                    contentDescription = "Home",
-                    isSelected = selectedItem == "Home",
-                    onClick = { onItemSelected("Home") }
-                )
-
-                NavigationItem(
-                    iconRes = R.drawable.ic_bottombar_leaderboard,
-                    contentDescription = "Leaderboard",
-                    isSelected = selectedItem == "Leaderboard",
-                    onClick = { onItemSelected("Leaderboard") }
-                )
-
-                Spacer(modifier = Modifier.width(40.dp))
-
-                NavigationItem(
-                    iconRes = R.drawable.ic_bottombar_tracking,
-                    contentDescription = "Tracking",
-                    isSelected = selectedItem == "Tracking",
-                    onClick = { onItemSelected("Tracking") }
-                )
-
-                NavigationItem(
-                    iconRes = R.drawable.ic_bottombar_community,
-                    contentDescription = "Community",
-                    isSelected = selectedItem == "Community",
-                    onClick = { onItemSelected("Community") }
-                )
-            }
-        }
-    }
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
-        NavigationBar(
-            selectedItem = selectedItem,
-            onItemSelected = { newSelection ->
-                selectedItem = newSelection
-
-                /* TODO */
-            },
-            modifier = Modifier.align(Alignment.BottomCenter)
-        )
-
-        IconButton(
-            onClick = { /* TODO */ },
-            modifier = Modifier
-                .padding(bottom = 24.dp)
-                .size(56.dp)
-                .clip(CircleShape)
-                .background(color = primaryFixed)
-                .align(Alignment.BottomCenter)
-                .padding(16.dp)
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_bottombar_main),
-                contentDescription = "Main Content",
-                modifier = Modifier.size(24.dp),
-                tint = onPrimaryFixed
-            )
-        }
-    }
-}
 
 @Composable
 //@Preview
@@ -775,7 +664,7 @@ fun TrackingContent(
                         .padding(bottom = 24.dp, start = 24.dp, end = 24.dp)
                 ){
                     if(!rememberIsBottomBarHide.value){
-                        FootworkBottomBar()
+                        BottomNavigationBar()
                     }
 
                     if(rememberIsTrackingStarted.value){
