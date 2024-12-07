@@ -260,6 +260,14 @@ val greenVerticalGradient = Brush.verticalGradient(
   )
 )
 
+
+val silverVerticalGradient = Brush.verticalGradient(
+  colors = listOf(
+    Color(0xFFD8D8D8),
+    Color(0xFFA8A8A8)
+  ),
+  startY = 0f, endY = 100f
+)
 val unselectedNavigation = Color(0xFF7B7B7B)
 val suggestionBackground = Color(0x80FAFAFA)
 val suggestionText = Color(0xFF7B7B7B)
