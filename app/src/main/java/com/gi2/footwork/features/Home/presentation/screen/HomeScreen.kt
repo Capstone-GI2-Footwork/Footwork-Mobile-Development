@@ -739,8 +739,8 @@ fun CardContainer() {
     LazyHorizontalGrid(
         rows = GridCells.Fixed(2),
         modifier = Modifier.height(352.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(4) { index ->
             when (index) {

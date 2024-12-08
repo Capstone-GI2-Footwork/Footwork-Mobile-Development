@@ -4,6 +4,7 @@ import com.gi2.footwork.features.Auth.data.network.AuthService
 import com.gi2.footwork.common.helper.NetworkError
 import com.gi2.footwork.features.Auth.domain.repository.AuthRepository
 import com.gi2.footwork.common.repository.PreferencesRepository
+import com.gi2.footwork.features.Auth.data.dto.LoginDto
 import com.gi2.footwork.features.Auth.data.dto.RegisterDto
 import com.skydoves.sandwich.suspendOnSuccess
 import java.util.Calendar
@@ -24,7 +25,11 @@ class AuthRepositoryImpl @Inject constructor(
   ): Result<Unit> {
     var res: Result<Unit> = Result.failure(NetworkError.InternalServer())
 
-    authService.signin(email, password)
+
+    authService.signin(LoginDto(
+      email,
+      password
+    ))
       .suspendOnSuccess {
         res = if (data.isError) {
           Result.failure(
