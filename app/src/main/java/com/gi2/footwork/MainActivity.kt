@@ -104,30 +104,7 @@ private fun NavGraphBuilder.addIndex(
     navController: NavController,
 ) {
     composable<FootworkRoute.Index> {
-        val viewModel: AuthViewModel = it.scopedViewModel(navController)
-        val state by viewModel.collectAsState()
-
-//        viewModel.collectSideEffect { effect ->
-//            when (effect) {
-//                is AuthSideEffect.OnNavigate -> {
-//                    navController.navigate(effect.route) {
-//                        popUpTo(FootworkRoute.Index) {
-//                            inclusive = true
-//                        }
-//                    }
-//                }
-//            }
-//        }
-
-        HomeScreenContent(
-//      state = state,
-//      onNavigate = {
-//        viewModel.redirect(
-//          if (state.isAuthed) FootworkRoute.Home
-//          else FootworkRoute.Onboarding
-//        )
-//      },
-        )
+        HomeScreenContent()
     }
 }
 
@@ -144,7 +121,7 @@ private fun NavGraphBuilder.addSignIn(
         viewModel.collectSideEffect { effect ->
             when (effect) {
                 SignInSideEffect.OnSuccessNavigate -> {
-                    navController.navigate(FootworkRoute.Home) {
+                    navController.navigate(FootworkRoute.Index) {
                         popUpTo(FootworkRoute.Home) { inclusive = true }
                     }
                 }

@@ -22,7 +22,7 @@ data class SignInFormState(
   fun validateEmail(): String {
     if (email.isEmpty()) return "Email cannot be empty."
     if (
-      Patterns.EMAIL_ADDRESS
+      !Patterns.EMAIL_ADDRESS
         .matcher(email)
         .matches()
     ) return "Please use a valid email address."
@@ -31,7 +31,7 @@ data class SignInFormState(
 
   fun validatePassword(): String {
     if (password.isEmpty()) return "Password cannot be empty."
-    if (password.length < 8) return "Password must be at least 8 characters."
+    if (password.length < 6) return "Password must be at least 6 characters."
     return ""
   }
 
