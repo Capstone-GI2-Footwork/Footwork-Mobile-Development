@@ -2,9 +2,8 @@ package com.gi2.footwork.features.Auth.presentation.viewmodel.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gi2.footwork.common.navigation.FootworkRoute
-import com.gi2.footwork.features.Auth.domain.use_case.GetUserUseCase
 import com.gi2.footwork.common.helper.UiStatus
+import com.gi2.footwork.features.Auth.domain.use_case.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.ContainerHost
@@ -17,9 +16,7 @@ class AuthViewModel @Inject constructor(
 ) : ViewModel(), ContainerHost<AuthState, AuthSideEffect> {
   override val container = viewModelScope.container<AuthState, AuthSideEffect>(
     initialState = AuthState.initial()
-  ) {
-    fetchUser()
-  }
+  ) { fetchUser() }
 
   private fun fetchUser() {
     intent {
@@ -32,12 +29,6 @@ class AuthViewModel @Inject constructor(
                 isAuthed = isAuthed
               )
             }
-            postSideEffect(
-              AuthSideEffect.OnNavigate(
-                if (isAuthed) FootworkRoute.Home
-                else FootworkRoute.Onboarding
-              )
-            )
           },
           onFailure = {
             reduce {
@@ -46,16 +37,9 @@ class AuthViewModel @Inject constructor(
                 isAuthed = false
               )
             }
-            postSideEffect(AuthSideEffect.OnNavigate(FootworkRoute.Onboarding))
           }
         )
       }
-    }
-  }
-
-  fun redirect(route: FootworkRoute) {
-    intent {
-      postSideEffect(AuthSideEffect.OnNavigate(route))
     }
   }
 
