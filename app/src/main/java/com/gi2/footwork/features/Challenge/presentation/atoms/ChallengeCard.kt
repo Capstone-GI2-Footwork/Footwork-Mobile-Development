@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.gi2.footwork.R
-import com.gi2.footwork.features.Challenge.domain.models.Challenge
+import com.gi2.footwork.features.Challenge.domain.model.Challenge
 import com.gi2.footwork.ui.theme.AppTypography
 import com.gi2.footwork.ui.theme.homeSectionTitle
 import com.gi2.footwork.ui.theme.onPrimaryFixed

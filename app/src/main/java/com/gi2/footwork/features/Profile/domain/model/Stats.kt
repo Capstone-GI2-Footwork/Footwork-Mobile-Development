@@ -1,4 +1,4 @@
-package com.gi2.footwork.features.Profile.domain.models
+package com.gi2.footwork.features.Profile.domain.model
 
 import kotlinx.serialization.Serializable
 

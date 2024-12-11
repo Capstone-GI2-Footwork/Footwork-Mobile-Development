@@ -1,4 +1,4 @@
-package com.gi2.footwork.features.Challenge.domain.models
+package com.gi2.footwork.features.Challenge.domain.model
 
 import kotlinx.serialization.Serializable
 
