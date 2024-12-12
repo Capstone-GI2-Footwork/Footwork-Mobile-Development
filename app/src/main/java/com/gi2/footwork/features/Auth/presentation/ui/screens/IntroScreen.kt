@@ -29,7 +29,7 @@ import com.gi2.footwork.ui.theme.FootworkTheme
 fun IntroScreen(
   modifier: Modifier = Modifier,
   onFormSubmit: () -> Unit,
-  onResultNext: () -> Unit
+  onResultNext: () -> Unit,
 ) {
   var currentScreen by remember { mutableStateOf("intro") }
 
@@ -123,11 +123,35 @@ private fun FormInputs(
 ) {
   val keyboardController = LocalSoftwareKeyboardController.current
 
-  val transports = remember { mutableStateListOf<String>() }
+  val transports = remember {
+    mutableStateListOf<String>(
+      "Walk",
+      "Car",
+      "Motorcycle",
+      "EV Cycle",
+      "EV Car"
+    )
+  }
   var selectedTransport by remember { mutableStateOf<String?>(null) }
-  val vehicles = remember { mutableStateListOf<String>() }
+  val vehicles = remember {
+    mutableStateListOf<String>(
+      "Honda CRF150L",
+      "Honda CRF250L",
+      "Honda Beat Street CBS",
+      "Honda ADV 160 ABS",
+      "Honda ADV 160 CBS",
+    )
+  }
   var selectedVehicle by remember { mutableStateOf<String?>(null) }
-  val fuels = remember { mutableStateListOf<String>() }
+  val fuels = remember {
+    mutableStateListOf<String>(
+      "Pertalite",
+      "Pertamax",
+      "Pertamax Green",
+      "Pertamax Turbo",
+      "Shell Super"
+    )
+  }
   var selectedFuel by remember { mutableStateOf<String?>(null) }
 
   Column(
