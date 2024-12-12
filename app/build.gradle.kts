@@ -20,10 +20,10 @@ plugins {
   alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
-//composeCompiler {
-//    enableStrongSkippingMode = true
-//    reportsDestination = layout.buildDirectory.dir("compose_compiler")
-//}
+composeCompiler {
+    enableStrongSkippingMode = true
+    reportsDestination = layout.buildDirectory.dir("compose_compiler")
+}
 
 android {
   namespace = "com.gi2.footwork"
@@ -71,9 +71,7 @@ android {
     buildConfig = true
     compose = true
   }
-//  composeOptions {
-//    kotlinCompilerExtensionVersion = "1.5.1"
-//  }
+
   packaging {
     resources {
       excludes += "/META-INF/{AL2.0,LGPL2.1}"

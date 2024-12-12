@@ -18,15 +18,19 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.*
+import com.gi2.footwork.common.navigation.FootworkRoute
+import com.gi2.footwork.features.Auth.presentation.ui.screens.OnboardingScreen
+import com.gi2.footwork.features.Auth.presentation.ui.screens.SignInScreen
+import com.gi2.footwork.features.Auth.presentation.ui.screens.SignUpScreen
 import com.gi2.footwork.ui.composables.common.scopedViewModel
-import com.gi2.footwork.ui.composables.screens.*
 import com.gi2.footwork.ui.theme.FootworkTheme
-import com.gi2.footwork.ui.viewmodel.auth.AuthSideEffect
-import com.gi2.footwork.ui.viewmodel.auth.AuthViewModel
-import com.gi2.footwork.ui.viewmodel.signin.SignInSideEffect
-import com.gi2.footwork.ui.viewmodel.signin.SignInViewModel
-import com.gi2.footwork.ui.viewmodel.signup.SignUpSideEffect
-import com.gi2.footwork.ui.viewmodel.signup.SignUpViewModel
+import com.gi2.footwork.features.Auth.presentation.viewmodel.auth.AuthSideEffect
+import com.gi2.footwork.features.Auth.presentation.viewmodel.auth.AuthViewModel
+import com.gi2.footwork.features.Auth.presentation.viewmodel.signin.SignInSideEffect
+import com.gi2.footwork.features.Auth.presentation.viewmodel.signin.SignInViewModel
+import com.gi2.footwork.features.Auth.presentation.viewmodel.signup.SignUpSideEffect
+import com.gi2.footwork.features.Auth.presentation.viewmodel.signup.SignUpViewModel
+import com.gi2.footwork.features.Home.presentation.screen.IndexScreen
 import dagger.hilt.android.AndroidEntryPoint
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -43,7 +47,7 @@ class MainActivity : ComponentActivity() {
       FootworkTheme {
         NavHost(
           navController,
-          startDestination = FootworkRoute.Index,
+          startDestination = FootworkRoute.Onboarding,
           enterTransition = { EnterTransition.None },
           exitTransition = { ExitTransition.None }
         ) {
