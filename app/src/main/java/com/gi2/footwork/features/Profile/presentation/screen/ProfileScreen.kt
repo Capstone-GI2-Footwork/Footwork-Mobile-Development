@@ -21,7 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gi2.footwork.R
-import com.gi2.footwork.features.Profile.domain.model.Stats
+import com.gi2.footwork.features.Profile.domain.models.Stats
 import com.gi2.footwork.features.Profile.model.SettingsItem
 import com.gi2.footwork.features.Profile.model.SettingsList
 import com.gi2.footwork.features.Profile.presentation.atoms.ProfileStatsBar

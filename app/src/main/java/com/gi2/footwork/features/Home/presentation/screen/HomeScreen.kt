@@ -32,7 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gi2.footwork.R
-import com.gi2.footwork.features.Challenge.domain.model.Challenge
+import com.gi2.footwork.features.Challenge.domain.models.Challenge
 import com.gi2.footwork.features.Challenge.presentation.atoms.ChallengeCard
 import com.gi2.footwork.ui.theme.*
 import kotlin.random.Random
@@ -410,6 +410,8 @@ fun CardContainer() {
 
           Text(
             text = "/${target.toInt()}km",
+
+            /* TODO: Add a style for this text */
             style = TextStyle(
               fontSize = 8.sp,
               lineHeight = 14.sp,
@@ -552,6 +554,8 @@ fun CardContainer() {
 
           Text(
             text = "/${targetKm.toInt()}km",
+
+            /* TODO: Add a style for this text */
             style = TextStyle(
               fontSize = 8.sp,
               lineHeight = 14.sp,
@@ -677,6 +681,8 @@ fun CardContainer() {
 
           Text(
             text = "/${targetKm.toInt()}km",
+
+            /* TODO: Add a style for this text */
             style = TextStyle(
               fontSize = 8.sp,
               lineHeight = 14.sp,

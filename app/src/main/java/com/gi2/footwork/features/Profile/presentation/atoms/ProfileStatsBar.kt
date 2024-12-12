@@ -18,7 +18,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gi2.footwork.R
-import com.gi2.footwork.features.Profile.domain.model.Stats
+import com.gi2.footwork.features.Profile.domain.models.Stats
 import com.gi2.footwork.ui.theme.AppTypography
 import com.gi2.footwork.ui.theme.FootworkTheme
 import com.gi2.footwork.ui.theme.onPrimaryFixed
