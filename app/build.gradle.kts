@@ -31,7 +31,7 @@ android {
 
   defaultConfig {
     applicationId = "com.gi2.footwork"
-    minSdk = 24
+    minSdk = 26
     //noinspection OldTargetApi
     targetSdk = 34
     versionCode = 1
@@ -180,4 +180,6 @@ dependencies {
   implementation(libs.orbitMvi.viewmodel)
   implementation(libs.orbitMvi.compose)
   testImplementation(libs.orbitMvi.test)
+  //  compose chart library
+  implementation(libs.compose.ycharts)
 }

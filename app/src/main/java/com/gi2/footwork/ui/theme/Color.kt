@@ -260,6 +260,15 @@ val greenVerticalGradient = Brush.verticalGradient(
   )
 )
 
+
+val silverVerticalGradient = Brush.verticalGradient(
+  colors = listOf(
+    Color(0xFFD8D8D8),
+    Color(0xFFA8A8A8)
+  ),
+  startY = 0f, endY = 100f
+)
+
 val unselectedNavigation = Color(0xFF7B7B7B)
 val suggestionBackground = Color(0x80FAFAFA)
 val suggestionText = Color(0xFF7B7B7B)
@@ -271,3 +280,8 @@ val destinationBackground = Color(0x40D8D8D8)
 val destinationText = Color(0xFF404040)
 val destinationDivider = Color(0xFFD8D8D8)
 val trackingStarted = Color(0xFF1AA56A)
+
+val homeSectionTitle = Color(0xFF404040)
+val userGreetingSubText = Color(0xFFB8B8B8)
+val statsProgressIndicator = Color(0xFFFFB20D)
+val contributionProgressIndicatorTrack = Color(0xFF99DDA8)

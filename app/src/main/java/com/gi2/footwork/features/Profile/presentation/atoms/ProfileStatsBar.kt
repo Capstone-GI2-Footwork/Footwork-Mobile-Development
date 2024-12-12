@@ -26,8 +26,9 @@ import com.gi2.footwork.ui.theme.primaryFixed
 
 @Composable
 fun ProfileStatsBar(
-  stats: Stats,
   modifier: Modifier = Modifier,
+  stats: Stats,
+  showPoint: Boolean = true,
 ) {
   Row(
     horizontalArrangement = Arrangement.spacedBy(
@@ -118,42 +119,45 @@ fun ProfileStatsBar(
       )
     }
 
-    VerticalDivider(
-      thickness = 2.dp,
-      color = primaryFixed,
-      modifier = Modifier
-        .height(48.dp)
-        .clip(RoundedCornerShape(8.dp))
-    )
+    if (showPoint) {
 
-    Column(
-      modifier = Modifier.fillMaxHeight(),
-      verticalArrangement = Arrangement.SpaceBetween
-    ) {
-      Row(
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
-        verticalAlignment = Alignment.CenterVertically
+      VerticalDivider(
+        thickness = 2.dp,
+        color = primaryFixed,
+        modifier = Modifier
+          .height(48.dp)
+          .clip(RoundedCornerShape(8.dp))
+      )
+
+      Column(
+        modifier = Modifier.fillMaxHeight(),
+        verticalArrangement = Arrangement.SpaceBetween
       ) {
-        Icon(
-          painter = painterResource(id = R.drawable.ic_cup_star),
-          contentDescription = null,
-          tint = primaryFixed
-        )
-        Text(
-          text = "Poin",
-          style = AppTypography.titleSmall.copy(
-            color = primaryFixed
+        Row(
+          horizontalArrangement = Arrangement.spacedBy(4.dp),
+          verticalAlignment = Alignment.CenterVertically
+        ) {
+          Icon(
+            painter = painterResource(id = R.drawable.ic_cup_star),
+            contentDescription = null,
+            tint = primaryFixed
           )
+          Text(
+            text = "Poin",
+            style = AppTypography.titleSmall.copy(
+              color = primaryFixed
+            )
+          )
+        }
+
+        Text(
+          text = "${stats.point} pts",
+          style = AppTypography.labelMedium.copy(
+            color = primaryFixed
+          ),
+          modifier = Modifier.align(Alignment.CenterHorizontally)
         )
       }
-
-      Text(
-        text = "${stats.point} pts",
-        style = AppTypography.labelMedium.copy(
-          color = primaryFixed
-        ),
-        modifier = Modifier.align(Alignment.CenterHorizontally)
-      )
     }
   }
 }
