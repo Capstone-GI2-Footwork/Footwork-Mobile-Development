@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gi2.footwork.R
+import com.gi2.footwork.features.Dashboard.presentation.atoms.DashboardLineChart
 import com.gi2.footwork.features.Profile.domain.model.Stats
 import com.gi2.footwork.features.Profile.presentation.atoms.ProfileStatsBar
 import com.gi2.footwork.features.Profile.presentation.atoms.ProfileTopBar
@@ -178,9 +179,8 @@ private fun DashboardScreenContent(
           modifier = Modifier
             .fillMaxWidth()
             .height(400.dp)
-            .background(color = primaryFixed)
         ) {
-
+          DashboardLineChart()
         }
       }
     }
