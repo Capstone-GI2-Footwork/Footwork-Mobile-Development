@@ -1,4 +1,4 @@
-package com.gi2.footwork.ui.composables.screens
+package com.gi2.footwork.features.Tracking.presentation.screen
 
 import BottomNavigationBar
 import androidx.compose.foundation.Image
@@ -21,14 +21,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -57,7 +54,6 @@ import com.gi2.footwork.ui.theme.primaryFixed
 import com.gi2.footwork.ui.theme.suggestionBackground
 import com.gi2.footwork.ui.theme.suggestionText
 import com.gi2.footwork.ui.theme.trackingStarted
-import com.gi2.footwork.ui.theme.unselectedNavigation
 
 @Composable
 //@Preview

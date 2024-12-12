@@ -18,5 +18,5 @@ sealed class FootworkRoute {
   data object SignUp : FootworkRoute()
 
   @Serializable
-  data object Home : FootworkRoute()
+  data object Intro : FootworkRoute()
 }

@@ -2,7 +2,9 @@ package com.gi2.footwork.features.Auth.presentation.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,8 +17,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.gi2.footwork.common.navigation.FootworkRoute
 import com.gi2.footwork.R
 import com.gi2.footwork.ui.composables.atoms.BrandButton
 import com.gi2.footwork.ui.theme.FootworkTheme
@@ -24,16 +24,13 @@ import com.gi2.footwork.ui.theme.FootworkTheme
 @Composable
 fun OnboardingScreen(
   modifier: Modifier = Modifier,
-  navController: NavController,
+  onRedirectSignUp: () -> Unit,
+  onRedirectSignIn: () -> Unit,
 ) {
   OnboardingScreenContent(
     modifier = modifier,
-    onSignUp = {
-      navController.navigate(FootworkRoute.SignUp)
-    },
-    onSignIn = {
-      navController.navigate(FootworkRoute.SignIn)
-    }
+    onSignUp = onRedirectSignUp,
+    onSignIn = onRedirectSignIn
   )
 }
 
